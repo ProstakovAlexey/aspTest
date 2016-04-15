@@ -1,0 +1,10 @@
+<smev:MessageData>
+        <smev:AppData>
+          <soc:PermitsData>
+            <soc:Citizen>
+              <soc:Snils>222-222-222-31</soc:Snils>
+            </soc:Citizen>
+            <soc:IssuedPermits>false</soc:IssuedPermits>
+          </soc:PermitsData>
+        </smev:AppData>
+      

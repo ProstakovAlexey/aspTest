@@ -1,0 +1,40 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:smev="http://smev.gosuslugi.ru/rev120315" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:mes="http://socit.ru/message" xmlns:soc="http://socit.ru">
+   <soap:Body wsu:Id="body">
+      <mes:PermitRequest>
+         <smev:Message>
+            <smev:Sender>
+               <smev:Code>#SND_CODE#</smev:Code>
+               <smev:Name>#SND_NAME#</smev:Name>
+            </smev:Sender>
+            <smev:Recipient>
+               <smev:Code>#SND_CODE#</smev:Code>
+               <smev:Name>#SND_NAME#</smev:Name>
+            </smev:Recipient>
+            <smev:Originator>
+               <smev:Code>#SND_CODE#</smev:Code>
+               <smev:Name>#SND_NAME#</smev:Name>
+            </smev:Originator>
+            <smev:ServiceName>TestMnemonic</smev:ServiceName>
+            <smev:TypeCode>GSRV</smev:TypeCode>
+            <smev:Status>REQUEST</smev:Status>
+            <smev:Date>#DATE#</smev:Date>
+            <smev:ExchangeType>2</smev:ExchangeType>
+            <smev:TestMsg>Test</smev:TestMsg>
+            <smev:OKTMO>#OKTMO#</smev:OKTMO>
+         </smev:Message>
+         <smev:MessageData>
+            <smev:AppData>
+               <soc:Permits>
+                  <soc:Citizen>
+                     <soc:FamilyName>#FAMIL#</soc:FamilyName>
+                     <soc:FirstName>#NAME#</soc:FirstName>
+                     <soc:Patronymic>#OTCH#</soc:Patronymic>
+                     <soc:BirthDate>#DROG#</soc:BirthDate>
+                     <soc:Snils>#SNILS#</soc:Snils>
+                  </soc:Citizen>
+               </soc:Permits>
+            </smev:AppData>
+         </smev:MessageData>
+      </mes:PermitRequest>
+   </soap:Body>
+</soap:Envelope>

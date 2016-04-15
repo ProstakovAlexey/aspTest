@@ -1,0 +1,13 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soc="http://socit.ru/">
+    <soapenv:Header>
+    	<soc:AuthHeader>
+    		<soc:authCode>#authCode#</soc:authCode>
+    	</soc:AuthHeader>
+    </soapenv:Header>
+   <soapenv:Body>
+      <soc:GetInfo>
+         <soc:snils>#SNILS#</soc:snils>
+         <soc:year>#YEAR#</soc:year>
+      </soc:GetInfo>
+   </soapenv:Body>
+</soapenv:Envelope>

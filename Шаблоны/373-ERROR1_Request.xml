@@ -1,0 +1,28 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:smev="http://smev.gosuslugi.ru/rev120315" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://oszn.fss.ru/SvedNoPosobOSZNv25">
+  <soap:Body wsu:Id="body">
+    <Request>
+      <smev:Message>
+        <smev:Sender>
+          <smev:Code>#SND_CODE#</smev:Code>
+          <smev:Name>#SND_NAME#</smev:Name>
+        </smev:Sender>
+        <smev:Recipient>
+          <smev:Code>#SND_CODE#</smev:Code>
+          <smev:Name>#SND_NAME#</smev:Name>
+        </smev:Recipient>
+        <smev:ServiceName>TestService</smev:ServiceName>
+        <smev:TypeCode>GSRV</smev:TypeCode>
+        <smev:Status>REQUEST</smev:Status>
+        <smev:Date>#DATE#</smev:Date>
+        <smev:ExchangeType>2</smev:ExchangeType>
+        <smev:TestMsg>Test</smev:TestMsg>
+        <smev:OKTMO>#OKTMO#</smev:OKTMO>
+      </smev:Message>
+      <smev:MessageData>
+        <smev:AppData>
+            <RequestDocument regionFrom="01" nameOrganizationFrom="ФСС-1" regionTo="02" nameOrganizationTo="ФСС-2" iNameCiv="Иванова" fNameCiv="Мария" mNameCiv="Ивановна" docDataCiv="1946-46-11" snils="00073462699" codeKind="21" seriesNumber="0000000000" iNameKind="Иванов" fNameKind="Иван" mNameKind="Иванович" docDatKind="1997-05-12" sbDoc="00" nbDoc="00" startDate="2010-01-01" endDate="2013-01-01"/>
+        </smev:AppData>
+      </smev:MessageData>
+    </Request>
+  </soap:Body>
+</soap:Envelope>

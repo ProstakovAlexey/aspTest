@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:smev="http://smev.gosuslugi.ru/rev120315" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://oszn.fss.ru/SvedNoPosobOSZNv25">
+  <soap:Body wsu:Id="body">
+    <Request>
+      <smev:Message>
+        <smev:Sender>
+          <smev:Code>#SND_CODE#</smev:Code>
+          <smev:Name>#SND_NAME#</smev:Name>
+        </smev:Sender>
+        <smev:Recipient>
+          <smev:Code>#SND_CODE#</smev:Code>
+          <smev:Name>#SND_NAME#</smev:Name>
+        </smev:Recipient>
+        <smev:ServiceName>TestService</smev:ServiceName>
+        <smev:TypeCode>GSRV</smev:TypeCode>
+        <smev:Status>REQUEST</smev:Status>
+        <smev:Date>#DATE#</smev:Date>
+        <smev:ExchangeType>2</smev:ExchangeType>
+        <smev:TestMsg>Test</smev:TestMsg>
+        <smev:OKTMO>#OKTMO#</smev:OKTMO>
+      </smev:Message>
+      <smev:MessageData>
+        <smev:AppData>
+          <RequestDocument codeKind="21" docDatKind="2000-01-01" docDataCiv="1970-01-01" endDate="2010-01-01" fNameCiv="Иван" fNameKind="Иван" iNameCiv="Иванов" iNameKind="Иванов" mNameCiv="Иванович" mNameKind="Иванович" nameOrganizationFrom="ФСС-1" nameOrganizationTo="ФСС-2" nbDoc="00" regionFrom="01" regionTo="02" sbDoc="00" seriesNumber="0000000000" snils="000-000-000 00" startDate="2000-01-01"/>
+        </smev:AppData>
+      </smev:MessageData>
+    </Request>
+  </soap:Body>
+</soap:Envelope>

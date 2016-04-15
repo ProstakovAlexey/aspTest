@@ -1,0 +1,23 @@
+<smev:MessageData>
+        <smev:AppData>
+          <soc:PermitsData>
+            <soc:Citizen>
+              <soc:FamilyName>Тестов</soc:FamilyName>
+              <soc:FirstName>Путевка</soc:FirstName>
+              <soc:Patronymic>Лагерь</soc:Patronymic>
+              <soc:BirthDate>2008-01-01</soc:BirthDate>
+              <soc:Snils>22222222231</soc:Snils>
+            </soc:Citizen>
+            <soc:IssuedPermits>true</soc:IssuedPermits>
+            <soc:Trips>
+              <soc:Trip>
+                <soc:Name>Выделение путевки в санаторный оздоровительный лагерь</soc:Name>
+                <soc:SubmissionDate>2014-06-10</soc:SubmissionDate>
+                <soc:BeginDate>2014-06-10</soc:BeginDate>
+                <soc:EndDate>2014-06-30</soc:EndDate>
+                <soc:status>Ребенок одинокой матери</soc:status>
+              </soc:Trip>
+            </soc:Trips>
+          </soc:PermitsData>
+        </smev:AppData>
+      
