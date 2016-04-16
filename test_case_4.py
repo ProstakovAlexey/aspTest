@@ -25,7 +25,7 @@ addr = 'http://%s:%s/%s/' % (ASP['adr'], ASP['port'], ASP['url'])
 def delTI():
         """Удаляет загруженные ранее записи для 1009 сервиса по списку людей"""
         DB = TI
-        conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8; autocommit=True" \
+        conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8" \
                % (DB['DB_address'], DB['DB_port'], DB['DB_name'], DB['DB_password'])
         try:
             conTI = pypyodbc.connect(conS)
@@ -33,7 +33,7 @@ def delTI():
             print("Возникла ошибка при соединении с БД АСП")
             exit(1)
         cur = conTI.cursor()
-        cur.execute("delete SMEV_SERVICE_PERMIT where F2_id in (select id from F2 where imja='Путевка' and OTCH='Лагерь')")
+        cur.execute("delete SMEV_SERVICE_PERMIT where F2_id in (1432605, 1462895)")
         conTI.commit()
         conTI.close()
 
@@ -113,7 +113,7 @@ class case4(unittest.TestCase):
                 checkBox.click()
 
 
-    def Wtest_1_kp(self):
+    def test_1_kp(self):
         """Направляет запрос на контрольные примеры"""
         err = service_1009.test_1009(TI)
         self.assertEqual(err, 0, 'При выполнении контрольных примеров к 1009 сервису возникли ошибки. %s' % TI['adr'])

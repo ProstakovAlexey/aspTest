@@ -20,7 +20,11 @@ addr = 'http://%s:%s/%s/' % (ASP['adr'], ASP['port'], ASP['url'])
 
 
 class case1(unittest.TestCase):
-
+    """Проверяет работу основных пунктов меню для госуслуги. Заявку вид
+    АСП: Заявки на получение льгот на оплату жилья и ЖКУ,
+    вид ГСП: Льготы на оплату жилья и ЖК услуги.
+    Должны загружаться 2 заявления последовательно, 2-е добавляться как обращение к первому.
+    Корректная работа полученного обращения с контролом госуслуги."""
     @staticmethod
     def setUpClass():
         # очистить папку со скриншотами ошибок
@@ -233,21 +237,23 @@ class case1(unittest.TestCase):
         # захожу в настройки СМЭВ
         driver.find_element_by_id("ctl00_cph_wpWSAuth_btnUserSet_SP").click()
         # снимаю галочку с района
-        driver.find_element_by_id("ctl00_cph_pwSettingUsers_gwSettingUsers_ctl02_chk").click()
+        checkBox = driver.find_element_by_id("ctl00_cph_pwSettingUsers_gwSettingUsers_ctl02_chk")
+        if checkBox.is_selected():
+            # если выбран, снимаю
+            checkBox.click()
         # нажимаю сохранить
         driver.find_element_by_css_selector("#ctl00_cph_pwSettingUsers_lbtnUsersSave > b > b").click()
-        # выйти
-        #driver.find_element_by_id("ctl00_cph_pwSettingUsers_btnClose").click()
         # очищаю строчку с адресом ЛК
         driver.find_element_by_id("ctl00_cph_wpWSAuth_tbWSServiceURL_LK").clear()
         # захожу в настройки ЛК
         driver.find_element_by_id("ctl00_cph_wpWSAuth_btnUserSet_LK").click()
          # снимаю галочку с района
-        driver.find_element_by_id("ctl00_cph_pwSettingUsers_gwSettingUsers_ctl02_chk").click()
+        checkBox = driver.find_element_by_id("ctl00_cph_pwSettingUsers_gwSettingUsers_ctl02_chk")
+        if checkBox.is_selected():
+            # если выбран, снимаю
+            checkBox.click()
         # нажимаю сохранить
         driver.find_element_by_css_selector("#ctl00_cph_pwSettingUsers_lbtnUsersSave > b > b").click()
-        # выйти
-        #driver.find_element_by_id("ctl00_cph_pwSettingUsers_btnClose").click()
         # выхожу из задачи с сохранением
         driver.find_element_by_id("ctl00_cph_lbtnExitSave").click()
         # окно предупреждение
@@ -262,8 +268,7 @@ class case1(unittest.TestCase):
         # проверяю
         res = cur.execute("exec GetSett 0,'WebService_Authentification',0")
         hash = hashlib.md5(res.fetchone()[0].encode()).hexdigest()
-
-        #self.assertEqual(hash, 'ce9fe549c988ec711f110e158d1248ab', 'Настройки БД не очищенны. Получен hash класса настроек: %s' % hash)
+        self.assertEqual(hash, 'ce9fe549c988ec711f110e158d1248ab', 'Настройки БД не очищенны. Получен hash класса настроек: %s' % hash)
         # заполняю СМЭВ
         driver.find_element_by_id("ctl00_cph_wpWSAuth_tbWSServiceURL_SP").clear()
         driver.find_element_by_id("ctl00_cph_wpWSAuth_tbWSServiceURL_SP").send_keys("http://tu:2121/SocPortal/Export.asmx")
@@ -302,8 +307,6 @@ class case1(unittest.TestCase):
             self.fail('При проверке пароля для СМЭВ получено предупреждение с неизвестным текстом: %s' % allert.text)
         # нажимаю сохранить
         driver.find_element_by_css_selector("#ctl00_cph_pwSettingUsers_lbtnUsersSave > b > b").click()
-        # выйти
-        #river.find_element_by_id("ctl00_cph_pwSettingUsers_btnClose").click()
         # настройка для ЛК ЭНСК 12345
         driver.find_element_by_id("ctl00_cph_wpWSAuth_btnUserSet_LK").click()
         driver.find_element_by_id("ctl00_cph_pwSettingUsers_gwSettingUsers_ctl02_chk").click()
@@ -326,8 +329,6 @@ class case1(unittest.TestCase):
             self.fail('При проверке пароля для СМЭВ получено предупреждение с неизвестным текстом: %s' % allert.text)
         # нажимаю сохранить
         driver.find_element_by_css_selector("#ctl00_cph_pwSettingUsers_lbtnUsersSave > b > b").click()
-        # выйти, настройка ЛК закончена
-        #driver.find_element_by_id("ctl00_cph_pwSettingUsers_btnClose").click()
         # выход из задачи
         driver.find_element_by_css_selector("#ctl00_cph_lbtnExitSave > img").click()
         # окно предупреждение
