@@ -6,11 +6,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest
 import pypyodbc
-import os, sys
-import hashlib
-import http.client
+import os
 import test_373
 import config
 from xml.dom.minidom import *
@@ -162,11 +160,13 @@ def getResponse(people, start, end, numer=0):
         if pay == 'true':
             # получал
             count = an.getAttribute('monthsNumber')
+            count = int(count)
     return count
 
 
 class case5(unittest.TestCase):
     """Проверяет сервис 373 - получение пособия. Перед выполнением удаляет тестового человека"""
+
     @staticmethod
     def setUpClass():
         # очистить папки
@@ -175,14 +175,15 @@ class case5(unittest.TestCase):
             for f in os.listdir(dir):
                 os.remove(dir+f)
         # удалить тестового человеа
-        #delTI(peopleList)
+        delTI(peopleList)
 
 
     def setUp(self):
+        """Выполнятся для каждого теста"""
         self.base_url = addr
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.driver.get(self.base_url+'Login.aspx')
+        self.driver.get(self.base_url + 'Login.aspx')
         self.verificationErrors = []
         self.accept_next_alert = True
         self.goMainASP()
@@ -218,6 +219,7 @@ class case5(unittest.TestCase):
                 # если выбран, снимаю
                 checkBox.click()
 
+    @unittest.skip('Временно отключен')
     def test_1_kp(self):
         """Направляет запрос на контрольные примеры из документации:
         ответ с данными, данные не найдены, ошибка в дате рождения, ошибка в GUID"""
@@ -226,7 +228,7 @@ class case5(unittest.TestCase):
 
 
     def test_2_load(self):
-        """ Выгружает ПКУ для СМЭВ из АСП в ЛК за период с 01.03.2016 по 01.04.2016. В БД в справочнике уже
+        """ Выгружает ПКУ для СМЭВ из АСП в ЛК за период с 01.03.2016 по 30.04.2016. В БД в справочнике уже
         должна быть выбрана заявка """
         # перед выгрузкой проверить, что информации по человеку нет
         for people in peopleList:
@@ -256,7 +258,7 @@ class case5(unittest.TestCase):
         # установливаю период по
         p = driver.find_element_by_id('igtxtctl00_cph_wdtPO_s373')
         p.click()
-        p.send_keys('01042016')
+        p.send_keys('30042016')
         # проверить, что установлены путевки
         self.assertTrue(self.is_element_present(By.CSS_SELECTOR,
                                                 "option[value=\"Заявка на ежемес.пособие по уходу за реб.до 1,5лет\"]"),
@@ -293,21 +295,26 @@ class case5(unittest.TestCase):
                              % (people['parentFamil'], people['parentName'], people['parentOtch'], count))
 
 
-    def test3_request(self):
-        """Направляет запрос на родителя: Сидит Сребенком Взрослая,
-        ребенок: Сидит Ребенок Первый, период 2016-03-20 по 2017-07-03,
-        т.к. загружали 01.03.2016 по 01.04.2016 должен ответить, что за 2 месяца получал"""
+    def test_3_request(self):
+        """Проверить, что весь загруженный период отдается, если он попадает в период запроса"""
+        #Направляет запрос на родителя: Сидит Сребенком Взрослая,
+        #ребенок: Сидит Ребенок Первый, период 2016-03-20 по 2017-07-03,
+        #До этого загружали с 01.03.2016 по 30.04.2016 (2 месяца)"""
         count = getResponse(peopleList[0], start='2016-03-20', end='2017-03-31', numer=0)
         self.assertEqual(count, 2, """Запрос на родителя: Сидит Сребенком Взрослая,
-        ребенок: Сидит Ребенок Первый, период 2016-03-20 по 2017-07-03,т.к. загружали 01.03.2016 по 01.04.2016
-        должен ответить, что за 1 месяца получал""")
+        ребенок: Сидит Ребенок Первый, период 2016-03-20 по 2017-07-03,т.к. загружали 01.03.2016 по 30.04.2016
+        должен ответить, что за 2 месяца получал""")
 
+
+    def test_4_request(self):
+        """Проверить, что если в периоде запроса указать только часть загруженного периода, то отдает только
+        часть"""
         #Направляет запрос на родителя: Сидит Сребенком Взрослая,
         #родителя: Сидит Ребенок Первый, период 2016-01-01 по 2017-03-31,
         #т.к. загружали 01.03.2016 по 01.04.2016 должен ответить, что за 1 месяц получал
         count = getResponse(peopleList[0], start='2016-01-01', end='2016-03-31', numer=0)
-        self.assertEqual(count, 2, """Запроса на Сидит Сребенком Взрослая, ребенок Сидит Ребенок Первый,
-        период 2016-01-01 по 2017-03-31. Ожидали, что кол-во месяцев придет 1""")
+        self.assertEqual(count, 1, """Запроса на Сидит Сребенком Взрослая, ребенок Сидит Ребенок Первый,
+        период 2016-01-01 по 2016-03-31. Ожидали, что кол-во месяцев придет 1""")
 
 
     def test_5_request(self):
@@ -380,9 +387,6 @@ class case5(unittest.TestCase):
             drog = an.getAttribute('docDataCiv')
             self.assertEqual(drog, '1987-11-10', "В запросе направляет не правильную ДР(1987 - 11 - 11), "
                                                  "должен вернуть правильную(1987 - 11 - 10)")
-
-
-
 
 
     def is_element_present(self, how, what):

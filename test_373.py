@@ -52,7 +52,8 @@ def service_373(req, IS, name='373'):
             for node in parseString(result).getElementsByTagName('smev:RequestIdRef'):
                 guid = node.childNodes[0].nodeValue
             #guid = guid.encode('utf8')
-            s = open(r"Шаблоны/373-Ping.xml", "r", encoding="utf8").read()
+            with open(r"Шаблоны/373-Ping.xml", "r", encoding="utf8") as f:
+                s = f.read()
             # проводим замены
             s = smev.change(s,IS)
             # и меняем GUID
@@ -96,7 +97,8 @@ def ok_373(IS):
                        obtainingGrants2="true", regionFrom="01",
                        regionTo="02", sbDoc="00", seriesNumber="0000000000",
                        snils="000-000-000 00", startDate="2000-01-01")
-    result = service_373(open('Шаблоны/373-OK_Request.xml', mode='r', encoding="utf-8").read(), IS, '373_ok')
+    with open('Шаблоны/373-OK_Request.xml', mode='r', encoding="utf-8") as f:
+        result = service_373(f.read(), IS, '373_ok')
     error = 0
     if result:
         an = parseString(result).getElementsByTagName('ResponseDocument').item(0)
@@ -127,7 +129,8 @@ def nofound_373(IS):
     '''Пример для данные не найдены'''
     error = 0
     good_notfound = dict(DataNotFound="")
-    result = service_373(open('Шаблоны/373-NOFOUND_Request.xml', mode='r', encoding="utf-8").read(), IS, '373_nofound')
+    with open('Шаблоны/373-NOFOUND_Request.xml', mode='r', encoding="utf-8") as f:
+        result = service_373(f.read(), IS, '373_nofound')
     if result:
         an = parseString(result).getElementsByTagName('smev:AppData').item(0)
     else:
@@ -156,7 +159,8 @@ def error_data_373(IS):
     # Образец ошибка в дате
     good_error1 = dict(
         value=r"ERR_LOAD_REQUEST_DATA: Ошибка загрузки данных из запроса к СМЭВ-сервису: Ошибка загрузки даты рождения: в docDataCiv дата должна быть в формате dd.MM.yyyy")
-    result = service_373(open('Шаблоны/373-ERROR1_Request.xml', mode='r', encoding="utf-8").read(), IS, '373_err_data')
+    with open('Шаблоны/373-ERROR1_Request.xml', mode='r', encoding="utf-8") as f:
+        result = service_373(f.read(), IS, '373_err_data')
     error = 0
     if result == None:
         # пришел пустой
@@ -181,7 +185,8 @@ def error_guid_373(IS):
     # Образец для не найден GUID
     good_error2 = dict(
         value=r"Ответ на асинхронный запрос c message.OriginRequestIdRef = d6ac87b8-a063-47d9-b201-9f0e2dd2de39 не найден в системе")
-    result = service_373(open('Шаблоны/373-ERROR2_Request.xml', mode='r', encoding="utf-8").read(), IS, '373_err_guid')
+    with open('Шаблоны/373-ERROR2_Request.xml', mode='r', encoding="utf-8") as f:
+        result = service_373(f.read(), IS, '373_err_guid')
     error = 0
     if result == None:
         # пришел пустой
