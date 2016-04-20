@@ -1034,6 +1034,8 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
         st = driver.find_element_by_id('ctl00_cph_lbl_State_cnt').text
         if st != '2':
             self.fail('ОШИБКА! Кол-во статусов к выгрузке %s, ожидается 2.' % st)
+        # перейти на выгрузку с помощью веб-сервиса
+        driver.find_element_by_id('ctl00_cph_UltraWebTab1td1').click()
         # нажимаю отправить
         driver.find_element_by_id('ctl00_cph_UltraWebTab1__ctl1_lbSendFilePortal').click()
         # подождать, когда отработает прогресс бар
