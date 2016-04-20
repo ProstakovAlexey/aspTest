@@ -85,6 +85,7 @@ class case6(unittest.TestCase):
             exit(1)
         return conTI
 
+
     def startConASP(self):
         DB = ASP
         conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8; autocommit=True" % (
@@ -166,6 +167,7 @@ class case6(unittest.TestCase):
         return msg
 
 
+    #@unittest.skip('Временно пропущен')
     def test_1_loadZaivl(self):
         """Загружает заявление для Тестова ПГУ Прочее"""
         # человек
@@ -241,6 +243,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         self.assertEqual('1', zaiv, 'Ожидали загрузку 1-го заявления')
 
 
+    #@unittest.skip('Временно пропущен')
     def test_2_writeZaivl(self):
         """Регистрирует заявление, проверяет создание 1-х заявление с заполненными F6 не NULL, F6_izm=NULL."""
         fio = ('Тестова', 'ПГУ', 'Прочее')
@@ -296,6 +299,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
             self.assertIsNone(i[1], 'F6_IZM должен быть пустой')
 
 
+    #@unittest.skip('Временно пропущен')
     def test_3_makeRehenie(self):
         """Делает решение принятому заявлению. Выставляет статус ИСПОЛНЕНО,
         тестовый комментарий с указанием номера заявления и прикладывается один файл.
@@ -345,6 +349,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         driver.find_element_by_id("ctl00_cph_btnExit").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_4_checkStatus(self):
         """Скриптом проверяет правильно ли сохранилось в БД принятое решение по 1-м заявления 122675408.
         Визуально проверяет, чтобы не было в прикрепленных файлах otvet.txt.
@@ -382,6 +387,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         driver.find_element_by_id("ctl00_cph_btnExit").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_5_checkStatus(self):
         """Пытается повторно ввести статус по заявления 122675408.
         Визуально проверяет чтобы не было в прикрепленных файлах otvet.txt после отправки
@@ -424,6 +430,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         driver.find_element_by_id("ctl00_cph_btnExit").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_6_checkStatus(self):
         """Заходит в заявление, вставляет комментарий из справочника, проверяет, что вставилось нормально.
          Выходит без сохранения.
@@ -464,6 +471,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         driver.find_element_by_id("ctl00_cph_btnExit").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_7_Status2(self):
         """Проверяет известную ошибку, когда при добавлении решений и выгрузке каждого может сохранятся много
         файлов решений (otvet.txt). Заходит в заявление, делает два решения, выгрузку после каждого.
@@ -537,6 +545,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         self.assertEqual(c, 1, 'Кол-во файлов otvet.txt по заявлению 265063t3  должно быть 1, получилось %s' % c)
 
 
+    #@unittest.skip('Временно пропущен')
     def test_8_loadZaivl(self):
         """Загружает 2 заявления для Тестова ПГУ Прочее"""
         # человек
@@ -573,6 +582,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         self.assertEqual('2', zaiv, 'Ожидали загрузку 2-х заявлений')
 
 
+    #@unittest.skip('Временно пропущен')
     def test_9_writeZaivl(self):
         """Регистрирует два заявления, проверяет создание 3-х заявление (3-х, т.к. сейчас 2, до этого 1)
          с заполненными F6 не NULL, F6_izm=NULL."""
@@ -629,6 +639,37 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         for i in res:
             self.assertTrue(i[0], 'F6 должен быть заполнен')
             self.assertIsNone(i[1], 'F6_IZM должен быть пустой')
+
+
+    def test_10_check3zaiv(self):
+        """По всем 3-м принятым заявления проверить, чтобы у них были: уникальные номера, вкладка госуслуги"""
+        # словарь ID, по которым переходить
+        id = {'122675408': 'ctl00_cph_grdMain_ctl04_lbtnGotoZayv',
+              '122675409': 'ctl00_cph_grdMain_ctl03_lbtnGotoZayv',
+              '122675410': 'ctl00_cph_grdMain_ctl02_lbtnGotoZayv'}
+        # список уникальных номеров заявлений в АСП
+        num = list()
+        # захожу в госуслуги
+        driver = self.driver
+        driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
+        # устанавливаю фильтр по ФИО
+        fio = ('Тестова', 'ПГУ', 'Прочее')
+        self.madeFiltr(driver, fio)
+        # перебираю 3 заявления
+        for key in id.keys():
+            # заходит в заявление
+            driver.find_element_by_id(id[key]).click()
+            # поверить наличие номера заявления
+            n = driver.find_element_by_id('igtxtctl00_cph_tbNzayv').get_attribute('value')
+            # записать его в словарь номеров
+            num.append(n)
+            # выходит из заявки
+            driver.find_element_by_id("ctl00_cph_TopStr1_lbtnTopStr_Exit").click()
+        # проверить, что все номера уникальные.
+        # Способ проверки - через множества - http://younglinux.info/python/task/uniqueness
+        setnum = set(num)
+        self.assertEqual(len(num), len(setnum),
+                         'Найдены не уникальные номера заявлений в АСП. Список номеров: %s' % num)
 
 
     def is_element_present(self, how, what):
