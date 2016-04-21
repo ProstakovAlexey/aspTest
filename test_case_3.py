@@ -160,6 +160,7 @@ class case3(unittest.TestCase):
                 # если выбран, снимаю
                 checkBox.click()
 
+
     #@unittest.skip('временно отключен')
     def test_1_load_2013(self):
         """ Выгружает ПКУ для ЛК за 2013г.
@@ -241,6 +242,7 @@ class case3(unittest.TestCase):
                          driver.find_element_by_id("ctl00_cph_L_Res").text,
                          'Передача ПКУ для ЛК прошла не успешно')
 
+
     #@unittest.skip('временно отключен')
     def test_2(self):
         """Направляет запрос к сервису Jaminai для проверки после загрузки данных за 2013г. Проверяет результат
@@ -256,6 +258,7 @@ class case3(unittest.TestCase):
                 f.write(result)
             summ = parseJam(result)
             self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого в тесте №4')
+
 
     #@unittest.skip('временно отключен')
     def test_3_load(self):
@@ -334,6 +337,7 @@ class case3(unittest.TestCase):
                          driver.find_element_by_id("ctl00_cph_L_Res").text,
                          'Передача ПКУ для ЛК прошла не успешно')
 
+
     #@unittest.skip('временно отключен')
     def test_4(self):
         """ Направляет запрос к сервису Jaminai для проверки после загрузки данных за весь период"""
@@ -348,6 +352,7 @@ class case3(unittest.TestCase):
                 f.write(result)
             summ = parseJam(result)
             self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого в тесте №4')
+
 
     #@unittest.skip('временно отключен')
     def test_5(self):
@@ -364,6 +369,7 @@ class case3(unittest.TestCase):
             summ = parseJam(result)
             self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого в тесте №4')
 
+
     #@unittest.skip('временно отключен')
     def test_6(self):
         """ Направляет запрос к сервису Jaminai только за 2014г. для проверки после загрузки данных должно быть 0"""
@@ -378,6 +384,7 @@ class case3(unittest.TestCase):
                 f.write(result)
             summ = parseJam(result)
             self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого')
+
 
     #@unittest.skip('временно отключен')
     def test_7(self):
@@ -394,10 +401,11 @@ class case3(unittest.TestCase):
             summ = parseJam(result)
             self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого')
 
+
     #@unittest.skip('временно отключен')
     def test_8_load(self):
-        """Повторит выгрузку за 2013-2015г. но укажет, чтобы не выгружалось по заявлениям = Заявка на ежемесячное пособие на детей.
-        Выгрузка должна перетереть имеющиеся данные"""
+        """Повторит выгрузку за 2013-2015г. но укажет, чтобы не выгружалось по мерам соцподдержки = Льготы по налогам,
+        Ежемесячное пособие на ребенка. Выгрузка должна перетереть имеющиеся данные"""
 
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
@@ -469,13 +477,14 @@ class case3(unittest.TestCase):
                          driver.find_element_by_id("ctl00_cph_L_Res").text,
                          'Передача ПКУ для ЛК прошла не успешно')
 
+
     #@unittest.skip('временно отключен')
     def test_9(self):
         """Направить запрос на весь период после выгрузки без учета заявлений Заявка на ежемесячное пособие на детей.
         Сравнит с контрольной суммой"""
         IS = TI
         # заполняет словарь со СНИСЛ и файлами образцами ответов
-        snilsDict = {'111-111-221 45': 2007.0}
+        snilsDict = {'111-111-221 45': 7.0}
         # перебирает тестовые СНИЛС
         for snils in snilsDict.keys():
             # направляет запрос в сервис по СНИЛС
