@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Набор тестов №4. Путевки в лагеря (1009 сервис) &mdash; Документация Описание тестов 1</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Документация Описание тестов 1" href="index.html" />
+    <link rel="next" title="Набор тестов №6. ГСП: Прочее, заявка: Заявки на получение субсидии на оплату жилья и ЖКУ" href="ts_6.html" />
+    <link rel="prev" title="Набор тестов №3. Инфосервис (Jaminai)" href="ts_3.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="ts_6.html" title="Набор тестов №6. ГСП: Прочее, заявка: Заявки на получение субсидии на оплату жилья и ЖКУ"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="ts_3.html" title="Набор тестов №3. Инфосервис (Jaminai)"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация Описание тестов 1</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="o4-1009">
+<h1>Набор тестов №4. Путевки в лагеря (1009 сервис)<a class="headerlink" href="#o4-1009" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Набор проверяет работу 1009 сервиса (путевки в лагеря) и задачу загрузки данных для него из АСП.
+Используется тестовый человек: Выделение путевки в санаторный оздоровительный лагерь, СНИЛС 222-222-222-31 - 2 путевки:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Выделана с 10.06.2014.</li>
+<li>Выделена с 10.08.2015.</li>
+</ol>
+</div></blockquote>
+<p>Второй человек без СНИЛС Тестовая Путевка Лагерь.</p>
+<div class="section" id="o1">
+<h2>Тест №1<a class="headerlink" href="#o1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос на контрольные примеры. Проверяет все КП из документации на сервис.</p>
+</div>
+<div class="section" id="o2">
+<h2>Тест №2<a class="headerlink" href="#o2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Очищает данные для тестового человека, проверяет скриптом, что очистка выполнена. Направляет запрос на него по путевкам в лагеря. Ожидаю пустой ответ.
+Т.к. выгрузку за 2015г не делали, должна быть только одна путевка.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Очищаю имеющееся по людем Путевка Лагерь.</li>
+<li>Проверит скриптом в БД, что очистилось нормально.</li>
+<li>Направит запрос и сравнит результат с образцом. Сообщение об ошибке: &#8216;Первый ответ 1009 сервиса не совпадает с образцом&#8217;.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o3">
+<h2>Тест №3<a class="headerlink" href="#o3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Выгружает ПКУ для 1009 сервиса за 2014г. Проверяет скриптом в БД, что добавилась 1 строка для каждого человека.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Захожу в выгрузку на ТИ</li>
+<li>Снимаю галочки для выгрузки всего</li>
+<li>Ставлю галочку на ПКУ для СМЭВ</li>
+<li>Снимаю галочки со всех сервисов</li>
+<li>Ставлю галочку на 1009</li>
+<li>Установливаю период с</li>
+<li>Установливаю период по</li>
+<li>Проверить, что установлены путевки</li>
+<li>Запускает отправка в 1009</li>
+<li>Ждет, когда отработает прогресс бар (30 мин)</li>
+<li>Проверяет, что прогрессбар успешно завершился</li>
+<li>Нажать на ОК на прогрессбаре</li>
+<li>Проверяет, что выгрузка прошла успешно</li>
+<li>Проверяю на ТИ, что загрузилась одна строка. Сообщение об ошибке: &#8216;Ожидали, что для 222-222-222-31 будет 1 строка в данных 1009 сервиса, но оказалось ... строк&#8217;.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o4">
+<h2>Тест №4<a class="headerlink" href="#o4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос на тестового человека по путевкам в лагеря. Ожидаю данные за 2014г. - выделана с 10.06.2014
+Т.к. выгрузку за 2015г не делали, должна быть только одна путевка.
+Полученный ответ сравнивает с образцом, сообщение об ошибке: &#8216;Второй ответ 1009 сервиса не совпадает с образцом&#8217;.</p>
+</div>
+<div class="section" id="o5">
+<h2>Тест №5<a class="headerlink" href="#o5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Выгружает ПКУ для 1009 сервиса за 2015г. Последовательность действий аналогична тесту №3
+Проверяю на ТИ, что загрузилась одна строка (всего будет две). Сообщение об ошибке: &#8216;Ожидали, что для 222-222-222-31 будет 2 строка в данных 1009 сервиса, но оказалось ... строк&#8217;</p>
+</div>
+<div class="section" id="o6">
+<h2>Тест №6<a class="headerlink" href="#o6" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="docutils">
+<dt>Направляет запрос на тестового человека по путевкам в лагеря. Ожидаю данные за 2014г. и 2015г.</dt>
+<dd><ol class="first last arabic simple">
+<li>выделана с 10.06.2014</li>
+<li>выделена с 10.08.2015</li>
+</ol>
+</dd>
+</dl>
+<p>Сообщение об ошибке: &#8216;Третий ответ 1009 сервиса не совпадает с образцом&#8217;</p>
+</div>
+<div class="section" id="o7">
+<h2>Тест №7<a class="headerlink" href="#o7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Выгружает ПКУ для 1009 сервиса за 2014 и 2015г. Ожидается что не будет суммирования с предыдущими, их заменят.
+Сообщение об ошибке: &#8216;Третья выгрузка. Ожидали, что для 222-222-222-31 будет 2 строка в данных 1009 сервиса, но оказалось ... строк&#8217;</p>
+</div>
+<div class="section" id="o8">
+<h2>Тест №8<a class="headerlink" href="#o8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос на тестового человека по путевкам в лагеря. Ожидаю данные за 2014г. и 2015г. Полность аналогичен Тест №6.
+Сообщение об ошибке: &#8216;4-й ответ 1009 сервиса не совпадает с образцом&#8217;.</p>
+</div>
+<div class="section" id="o9">
+<h2>Тест №9<a class="headerlink" href="#o9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Делает запрос на человека без СНИЛС - Тестовая Путевка Лагерь, должен прийти ответ - одна путевка.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Набор тестов №4. Путевки в лагеря (1009 сервис)</a><ul>
+<li><a class="reference internal" href="#o1">Тест №1</a></li>
+<li><a class="reference internal" href="#o2">Тест №2</a></li>
+<li><a class="reference internal" href="#o3">Тест №3</a></li>
+<li><a class="reference internal" href="#o4">Тест №4</a></li>
+<li><a class="reference internal" href="#o5">Тест №5</a></li>
+<li><a class="reference internal" href="#o6">Тест №6</a></li>
+<li><a class="reference internal" href="#o7">Тест №7</a></li>
+<li><a class="reference internal" href="#o8">Тест №8</a></li>
+<li><a class="reference internal" href="#o9">Тест №9</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="ts_3.html"
+                        title="предыдущая глава">Набор тестов №3. Инфосервис (Jaminai)</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="ts_6.html"
+                        title="следующая глава">Набор тестов №6. ГСП: Прочее, заявка: Заявки на получение субсидии на оплату жилья и ЖКУ</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ts_4.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="ts_6.html" title="Набор тестов №6. ГСП: Прочее, заявка: Заявки на получение субсидии на оплату жилья и ЖКУ"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="ts_3.html" title="Набор тестов №3. Инфосервис (Jaminai)"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация Описание тестов 1</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Простаков А.Н..
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Набор тестов №3. Инфосервис (Jaminai) &mdash; Документация Описание тестов 1</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Документация Описание тестов 1" href="index.html" />
+    <link rel="next" title="Набор тестов №4. Путевки в лагеря (1009 сервис)" href="ts_4.html" />
+    <link rel="prev" title="Набор тестов №2. Заявка на ГДВ на оплач. доп.отпуска по радиации, вид ГСП: Компенсационные выплаты пострадавшим от радиации." href="ts_2.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="ts_4.html" title="Набор тестов №4. Путевки в лагеря (1009 сервис)"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="ts_2.html" title="Набор тестов №2. Заявка на ГДВ на оплач. доп.отпуска по радиации, вид ГСП: Компенсационные выплаты пострадавшим от радиации."
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация Описание тестов 1</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="o3-jaminai">
+<h1>Набор тестов №3. Инфосервис (Jaminai)<a class="headerlink" href="#o3-jaminai" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Проверяет выгрузку в ЛК и работы веб-сервиса Jaminai. Сначала проверит работу галочек, потом будет выгружать за разные периоды и проверять ответы веб-сервиса.
+Попутно проверит протоколирование выгрузки и обращения к сервису на ТИ. Всю выгрузку проводит в район Энск (ИД=17), перед выполнением очищает данные для района в ЛК.</p>
+<div class="section" id="o1">
+<h2>Тест №1<a class="headerlink" href="#o1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Выгружает ПКУ для ЛК за 2013г.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Захожу в выгрузку на ТИ</li>
+<li>Снимаю галочки для выгрузки всего</li>
+<li>Ставлю галочку на ПКУ для ЛК</li>
+<li>Снимаю галочки на выгрузку всего, если они стояли</li>
+<li>Ставлю не выгружать персональную информацию</li>
+<li>Ставлю выплаты</li>
+<li>Установливаю период с</li>
+<li>Установить дату период по</li>
+<li>Убираю все галочки с выплат</li>
+<li>Проверяю работу галочки не выгружать закрытые признаки учета</li>
+<li>Проверяю галочку не выгружать закрытые удостоверения</li>
+<li>Устанавливаю галочку Признаки учета</li>
+<li>Проверяю работу галочки не выгружать закрытые признаки учета</li>
+<li>Проверяет кол-во ПКУ для ЛК (24 шт.)</li>
+<li>Перейти на выгрузку с помощью веб-сервиса</li>
+<li>Запускает отправка в ЛК</li>
+<li>Ждет, когда отработает прогресс бар (30 мин), обычно работает за 2 мин.</li>
+<li>Проверяет, что прогрессбар успешно завершился</li>
+<li>Нажать на ОК на прогрессбаре</li>
+<li>Проверяет, что выгрузка прошла успешно</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o2">
+<h2>Тест №2<a class="headerlink" href="#o2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос к сервису Jaminai для проверки после загрузки данных за 2013г. Проверяет результат
+на соответствие образцу 111-111-221 45_1.xml. Кратко: за 2013г. - 2650 руб.</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Заполняет словарь со СНИСЛ и файлами образцами ответов</p>
+</li>
+<li><dl class="first docutils">
+<dt>Перебирает тестовые СНИЛС</dt>
+<dd><ul class="first last simple">
+<li>Направляет запрос в сервис по СНИЛС</li>
+<li>Сохраняет ответ</li>
+<li>Сравнивает разультат с образцом</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o3">
+<h2>Тест №3<a class="headerlink" href="#o3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Выгружает ПКУ для ЛК за 2014г. Последовательность действий аналогична Тест №1</p>
+</div>
+<div class="section" id="o4">
+<h2>Тест №4<a class="headerlink" href="#o4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос к сервису Jaminai для проверки после загрузки данных за 2013 и 2014г.
+Проверяет результат на соответствие образцу 111-111-221 45_2.xml.
+Кратко: за 2013г. - 2650 руб., за 2015г. - 453,5 руб.</p>
+<p>Последовательность действий аналогична Тесту №2.</p>
+</div>
+<div class="section" id="o5">
+<h2>Тест №5<a class="headerlink" href="#o5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос к сервису Jaminai только за 2013г. для проверки после загрузки данных, сравнивает с контрольной суммой.</p>
+</div>
+<div class="section" id="o6">
+<h2>Тест №6<a class="headerlink" href="#o6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос к сервису Jaminai только за 2014г. для проверки после загрузки данных должно быть 0.</p>
+</div>
+<div class="section" id="o7">
+<h2>Тест №7<a class="headerlink" href="#o7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направляет запрос к сервису Jaminai только за 2015г., сравнивает с контрольной суммой.</p>
+</div>
+<div class="section" id="o8">
+<h2>Тест №8<a class="headerlink" href="#o8" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="docutils">
+<dt>Повторит выгрузку за 2013-2015г. но укажет, чтобы не выгружалось по заявлениям = Заявка на ежемесячное пособие на детей. Выгрузка должна перетереть имеющиеся данные.</dt>
+<dd><ol class="first last arabic simple">
+<li>Захожу в выгрузку на ТИ.</li>
+<li>Снимаю галочки для выгрузки всего.</li>
+<li>Ставлю галочку на ПКУ для ЛК.</li>
+<li>Снимаю галочки на выгрузку всего, если они стояли.</li>
+<li>Ставлю на ПКУ с ПИН кодом.</li>
+<li>Ставлю не выгружать персональную информацию.</li>
+<li>Ставлю выплаты.</li>
+<li>Установливаю период с 01.01.2013.</li>
+<li>Установить дату период по 31.12.2015.</li>
+<li>Убираю все галочки с выплат.</li>
+<li>Ставлю галочки, в т.ч. на Не выгружать информацию по мерам соцподдержки (Заявка на ежемесячное пособие на детей уже выбрана).</li>
+<li>Проверяю работу галочки не выгружать закрытые признаки учета.</li>
+<li>Проверяю галочку не выгружать закрытые удостоверения.</li>
+<li>Устанавливаю галочку Признаки учета.</li>
+<li>Проверяю работу галочки не выгружать закрытые признаки учета.</li>
+<li>Тут ошибка в ПО, поэтому пока закомментировал.</li>
+<li>Выгружаю. ждет, когда отработает прогресс бар (30 мин).</li>
+<li>Проверяет, что прогрессбар успешно завершился.</li>
+<li>Нажать на ОК на прогрессбаре.</li>
+<li>Проверяет, что выгрузка прошла успешно.</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="o9">
+<h2>Тест №9<a class="headerlink" href="#o9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Направить запрос на весь период после выгрузки без учета заявлений Заявка на ежемесячное пособие на детей. Сравнит с контрольной суммой.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Набор тестов №3. Инфосервис (Jaminai)</a><ul>
+<li><a class="reference internal" href="#o1">Тест №1</a></li>
+<li><a class="reference internal" href="#o2">Тест №2</a></li>
+<li><a class="reference internal" href="#o3">Тест №3</a></li>
+<li><a class="reference internal" href="#o4">Тест №4</a></li>
+<li><a class="reference internal" href="#o5">Тест №5</a></li>
+<li><a class="reference internal" href="#o6">Тест №6</a></li>
+<li><a class="reference internal" href="#o7">Тест №7</a></li>
+<li><a class="reference internal" href="#o8">Тест №8</a></li>
+<li><a class="reference internal" href="#o9">Тест №9</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="ts_2.html"
+                        title="предыдущая глава">Набор тестов №2. Заявка на ГДВ на оплач. доп.отпуска по радиации, вид ГСП: Компенсационные выплаты пострадавшим от радиации.</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="ts_4.html"
+                        title="следующая глава">Набор тестов №4. Путевки в лагеря (1009 сервис)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ts_3.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="ts_4.html" title="Набор тестов №4. Путевки в лагеря (1009 сервис)"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="ts_2.html" title="Набор тестов №2. Заявка на ГДВ на оплач. доп.отпуска по радиации, вид ГСП: Компенсационные выплаты пострадавшим от радиации."
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация Описание тестов 1</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Простаков А.Н..
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  </body>
+</html>

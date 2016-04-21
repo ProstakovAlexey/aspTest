@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Набор тестов №6. ГСП: Прочее, заявка: Заявки на получение субсидии на оплату жилья и ЖКУ &mdash; Документация Описание тестов 1</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Документация Описание тестов 1" href="index.html" />
+    <link rel="next" title="Набор тестов №7. ГСП: Пособия семьям и детям" href="ts_7.html" />
+    <link rel="prev" title="Набор тестов №4. Путевки в лагеря (1009 сервис)" href="ts_4.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="ts_7.html" title="Набор тестов №7. ГСП: Пособия семьям и детям"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="ts_4.html" title="Набор тестов №4. Путевки в лагеря (1009 сервис)"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация Описание тестов 1</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="o6">
+<h1>Набор тестов №6. ГСП: Прочее, заявка: Заявки на получение субсидии на оплату жилья и ЖКУ<a class="headerlink" href="#o6" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Проверяет прием и обработку заявлений по Вид заявки: <strong>Заявки на получение субсидии на оплату жилья и ЖКУ</strong>,
+ГСП: <strong>прочее</strong>. Используется человек Тестова ПГУ Прочее, номера заявлений: 122675408, 122675409, 122675410, район на ТИ=159.
+Сначала загружает, обрабатывает и проверяет одно заявление, потом два.</p>
+<div class="section" id="o1">
+<h2>Тест №1<a class="headerlink" href="#o1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Загружает заявление для Тестова ПГУ Прочее</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Соединяюсь с БД ТИ.</li>
+<li>Перед загрузкой отмечаем все для района как загруженное.</li>
+<li>Удаляю ответы на заявки человека на ТИ.</li>
+<li>Отмечаю заявление  122675408 к загрузке на ТИ.</li>
+<li>Отсоединяюсь от ТИ.</li>
+<li>Соединяюсь с АСП.</li>
+<li>Удаляет в АСП все не обработанные заявления.</li>
+<li>Удаляю по человеку с АСП заявления, ответы, скандоки.</li>
+<li>Отсоединяюсь от АСП.</li>
+<li>Пробуем загрузить заявление.</li>
+<li>Подождать, когда отработает прогресс бар.</li>
+<li>Проверить, что пришло одно заявление.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o2">
+<h2>Тест №2<a class="headerlink" href="#o2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Регистрирует заявление, проверяет создание 1-х заявление с заполненными F6 не NULL, F6_izm=NULL.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Захожу в госуслуги.</li>
+<li>Связывание с ПКУ.</li>
+<li>Устанавливаю фильтр по ФИО.</li>
+<li>Запись заявлений.</li>
+<li>сформировани список для массой регистрации.</li>
+<li>Вот тут надо нажать на 1, в списке.</li>
+<li>Подождем прогресс запись заявок в БД.</li>
+<li>Выйти из записи.</li>
+<li>Проверить, как записалось. Для этого человека должно быть создано 2 f6.</li>
+<li>Соединяюсь с БД АСП.</li>
+<li>Получает кол-во заявлений и изменений к ним для человека.</li>
+<li>Закрыть соединение с БД.</li>
+<li>Проверяет, что создалось одно заявление и один izm.</li>
+<li>Проверяет, что каждый F6 и F6_IZM заполен.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o3">
+<h2>Тест №3<a class="headerlink" href="#o3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Делает решение принятому заявлению. Выставляет статус ИСПОЛНЕНО, тестовый комментарий с указанием номера заявления и прикладывается один файл. Решение сохраняет и возвращается в главное меню.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Захожу в госуслуги.</li>
+<li>Устанавливаю фильтр по ФИО.</li>
+<li>Заходит в заявление.</li>
+<li>Войти в заявку.</li>
+<li>Новый ответ из обложки заявления.</li>
+<li>Выставляет статус ИСПОЛНЕНО(3).</li>
+<li>Заполняет комментарий.</li>
+<li>Загружает файл.</li>
+<li>Жду загрузки файла.</li>
+<li>Вводит срок действия заявки.</li>
+<li>Выходит из заявки.</li>
+<li>Выход в главное.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o4">
+<h2>Тест №4<a class="headerlink" href="#o4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Скриптом проверяет правильно ли сохранилось в БД принятое решение по 1-м заявления 122675408. Визуально проверяет, чтобы не было в прикрепленных файлах otvet.txt.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Соединяется с БД.</li>
+<li>Проверяет по заявлению 122675408.</li>
+<li>Закрывает соединение с БД.</li>
+<li>Захожу в госуслуги.</li>
+<li>Устанавливаю фильтр по ФИО.</li>
+<li>Заходит в заявление.</li>
+<li>Войти в заявку.</li>
+<li>Ищет на странице текст otvet.txt.</li>
+<li>Выходит из заявки.</li>
+<li>Выход в главное.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o5">
+<h2>Тест №5<a class="headerlink" href="#o5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Пытается повторно ввести статус по заявления 122675408. Визуально проверяет чтобы не было в прикрепленных файлах otvet.txt после отправки и во время ввода статуса.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Соединяется с БД АСП.</li>
+<li>Устанавливаю время выгрузки для ответов, будто они выгружены.</li>
+<li>Отсоединяемся от ДБ АСП.</li>
+<li>Захожу в госуслуги.</li>
+<li>Устанавливаю фильтр по ФИО.</li>
+<li>Берет заявление.</li>
+<li>Войти в заявку.</li>
+<li>Ищет на странице текст otvet.txt.</li>
+<li>Новый ответ из обложки заявления.</li>
+<li>Ищет на странице текст otvet.txt.</li>
+<li>Выходит из заявки.</li>
+<li>Выход в главное.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="id1">
+<h2>Тест №6<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Заходит в заявление, вставляет комментарий из справочника, проверяет, что вставилось нормально. Выходит без сохранения.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Захожу в госуслуги.</li>
+<li>Устанавливаю фильтр по ФИО.</li>
+<li>Перебираю два заявления.</li>
+<li>Войти в заявку.</li>
+<li>Новый ответ из обложки заявления.</li>
+<li>Выставляет статус Исполено(3).</li>
+<li>Заполняет комментарий.</li>
+<li>Сделать вставку из справочника.</li>
+<li>Сделать проверку, что в комментарии..</li>
+<li>Выходит из заявки.</li>
+<li>Выход в главное.</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o7">
+<h2>Тест №7<a class="headerlink" href="#o7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Проверяет известную ошибку, когда при добавлении решений и выгрузке каждого может сохранятся много файлов решений (otvet.txt). Заходит в заявление, делает два решения, выгрузку после каждого. Проверяет скриптом в БД, должен быть один файл otvet.txt.</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Соединяется с БД.</p>
+</li>
+<li><p class="first">Захожу в госуслуги.</p>
+</li>
+<li><p class="first">Устанавливаю фильтр по ФИО.</p>
+</li>
+<li><p class="first">Берет заявление 265063t3.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Делает два решения и выгрузку после каждого.</dt>
+<dd><ul class="first last simple">
+<li>войти в заявку</li>
+<li>новый ответ из обложки заявления</li>
+<li>выставляет статус Исполено(3)</li>
+<li>заполняет комментарий</li>
+<li>сохраняет комментарий и статус</li>
+<li>проверить, что вышло окно подтверждающее сохранение</li>
+<li>загружает файл</li>
+<li>жду загрузки файла</li>
+<li>выходит из заявки</li>
+<li>устанавливаю время выгрузки для ответов, будто они выгружены</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Выход в главное.</p>
+</li>
+<li><p class="first">Спросить в БД сколько файлов otvet.txt к заявлению 122675408.</p>
+</li>
+<li><p class="first">Отсоединяется от Бд.</p>
+</li>
+<li><p class="first">Выполняется проверка, кол-во файлов otvet.txt по заявлению  265063t3  должно быть 1.</p>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="o8">
+<h2>Тест №8<a class="headerlink" href="#o8" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="docutils">
+<dt>Загружает 2 заявления для Тестова ПГУ Прочее</dt>
+<dd><ol class="first last arabic simple">
+<li>Человек.</li>
+<li>Соединяюсь с БД ТИ.</li>
+<li>Отмечаю заявление  122675408 к загрузке на ТИ.</li>
+<li>Отсоединяюсь от ТИ.</li>
+<li>Пробуем загрузить заявление.</li>
+<li>Подождать, когда отработает прогресс бар.</li>
+<li>Проверить, что загрузилось два заявления.</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="o9">
+<h2>Тест №9<a class="headerlink" href="#o9" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="docutils">
+<dt>Регистрирует два заявления, проверяет создание 3-х заявление (3-х, т.к. сейчас 2, до этого 1) с заполненными F6 не NULL, F6_izm=NULL.</dt>
+<dd><ol class="first last arabic simple">
+<li>Захожу в госуслуги.</li>
+<li>Связывание с ПКУ.</li>
+<li>Устанавливаю фильтр по ФИО.</li>
+<li>Запись заявлений.</li>
+<li>Сформировани список для массовой регистрации.</li>
+<li>Вот тут надо нажать на 1, в списке.</li>
+<li>Подождем прогресс запись заявок в БД.</li>
+<li>Выйти из записи.</li>
+<li>Проверить, как записалось. Для этого человека должно быть создано 2 f6.</li>
+<li>Соединяюсь с БД АСП.</li>
+<li>Получает кол-во заявлений и изменений к ним для человека.</li>
+<li>Закрыть соединение с БД.</li>
+<li>Проверяет, что создалось одно заявление и один izm.</li>
+<li>Проверяет, что каждый F6 и F6_IZM заполен.</li>
+</ol>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Набор тестов №6. ГСП: Прочее, заявка: Заявки на получение субсидии на оплату жилья и ЖКУ</a><ul>
+<li><a class="reference internal" href="#o1">Тест №1</a></li>
+<li><a class="reference internal" href="#o2">Тест №2</a></li>
+<li><a class="reference internal" href="#o3">Тест №3</a></li>
+<li><a class="reference internal" href="#o4">Тест №4</a></li>
+<li><a class="reference internal" href="#o5">Тест №5</a></li>
+<li><a class="reference internal" href="#id1">Тест №6</a></li>
+<li><a class="reference internal" href="#o7">Тест №7</a></li>
+<li><a class="reference internal" href="#o8">Тест №8</a></li>
+<li><a class="reference internal" href="#o9">Тест №9</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="ts_4.html"
+                        title="предыдущая глава">Набор тестов №4. Путевки в лагеря (1009 сервис)</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="ts_7.html"
+                        title="следующая глава">Набор тестов №7. ГСП: Пособия семьям и детям</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/ts_6.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Быстрый поиск</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Искать" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Введите слова для поиска или имя модуля, класса или функции.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="ts_7.html" title="Набор тестов №7. ГСП: Пособия семьям и детям"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="ts_4.html" title="Набор тестов №4. Путевки в лагеря (1009 сервис)"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Документация Описание тестов 1</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Простаков А.Н..
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.3.
+    </div>
+  </body>
+</html>
