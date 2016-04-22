@@ -133,9 +133,11 @@ def change(s, IS):
     s = s.replace('#VERSION#', 'rev120315')
     s = s.replace('#SERVICE_MNEMONIC#', 'TestMnemonic')
     s = s.replace('#SERVICE_VERSION#', '2.01')
+    #print(s)
     for key in IS.keys():
         # все символы делает заглавными и решетки
         st = "#%s#" % key.upper()
+        #print('st=', st)
         s = s.replace(st, IS[key])
     s = s.replace('#DATE#', get_smev_date())
     # добавить подпись
