@@ -118,6 +118,7 @@ class case3(unittest.TestCase):
                 os.remove(dir+f)
         delLK(LK)
 
+
     def setUp(self):
 
         self.base_url = 'http://%s:%s/%s/' % (ASP['adr'], ASP['port'], ASP['url'])

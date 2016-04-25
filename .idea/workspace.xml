@@ -1,0 +1,1540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bae6df72-b1bf-4b1d-94e7-9feb5d1a446d" name="Default" comment="Документация перенесена на ГИТ">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_1004.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(1)_REQUEST.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(1)_RESULT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(2)_REQUEST.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(2)_RESULT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(3)_REQUEST.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(3)_RESULT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(4)_REQUEST.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/222-222-222-31(4)_RESULT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/Тестовая_без_СНИЛС_REQUEST.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Результаты/Тестовая_без_СНИЛС_RESULT.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/environment.pickle" afterPath="$PROJECT_DIR$/doc/_build/doctrees/environment.pickle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/index.doctree" afterPath="$PROJECT_DIR$/doc/_build/doctrees/index.doctree" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_1.png" afterPath="$PROJECT_DIR$/fig/1/error_1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_2.png" afterPath="$PROJECT_DIR$/fig/1/error_2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_3.png" afterPath="$PROJECT_DIR$/fig/1/error_3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_4.png" afterPath="$PROJECT_DIR$/fig/1/error_4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_5.png" afterPath="$PROJECT_DIR$/fig/1/error_5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_6.png" afterPath="$PROJECT_DIR$/fig/1/error_6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_7.png" afterPath="$PROJECT_DIR$/fig/1/error_7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_8.png" afterPath="$PROJECT_DIR$/fig/1/error_8.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/1/error_9.png" afterPath="$PROJECT_DIR$/fig/1/error_9.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/2/error_1.png" afterPath="$PROJECT_DIR$/fig/2/error_1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/2/error_2.png" afterPath="$PROJECT_DIR$/fig/2/error_2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/2/error_3.png" afterPath="$PROJECT_DIR$/fig/2/error_3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/2/error_4.png" afterPath="$PROJECT_DIR$/fig/2/error_4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/2/error_5.png" afterPath="$PROJECT_DIR$/fig/2/error_5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/2/error_6.png" afterPath="$PROJECT_DIR$/fig/2/error_6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/2/error_7.png" afterPath="$PROJECT_DIR$/fig/2/error_7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/3/error_1.png" afterPath="$PROJECT_DIR$/fig/3/error_1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/3/error_2.png" afterPath="$PROJECT_DIR$/fig/3/error_2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/3/error_3.png" afterPath="$PROJECT_DIR$/fig/3/error_3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/3/error_4.png" afterPath="$PROJECT_DIR$/fig/3/error_4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/3/error_5.png" afterPath="$PROJECT_DIR$/fig/3/error_5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/3/error_6.png" afterPath="$PROJECT_DIR$/fig/3/error_6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/3/error_7.png" afterPath="$PROJECT_DIR$/fig/3/error_7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_1.png" afterPath="$PROJECT_DIR$/fig/4/error_1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_2.png" afterPath="$PROJECT_DIR$/fig/4/error_2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_3.png" afterPath="$PROJECT_DIR$/fig/4/error_3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_4.png" afterPath="$PROJECT_DIR$/fig/4/error_4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_5.png" afterPath="$PROJECT_DIR$/fig/4/error_5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_6.png" afterPath="$PROJECT_DIR$/fig/4/error_6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_7.png" afterPath="$PROJECT_DIR$/fig/4/error_7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/4/error_8.png" afterPath="$PROJECT_DIR$/fig/4/error_8.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/5/error_1.png" afterPath="$PROJECT_DIR$/fig/5/error_1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_1.png" afterPath="$PROJECT_DIR$/fig/6/error_1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_2.png" afterPath="$PROJECT_DIR$/fig/6/error_2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_3.png" afterPath="$PROJECT_DIR$/fig/6/error_3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_4.png" afterPath="$PROJECT_DIR$/fig/6/error_4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_5.png" afterPath="$PROJECT_DIR$/fig/6/error_5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_6.png" afterPath="$PROJECT_DIR$/fig/6/error_6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_7.png" afterPath="$PROJECT_DIR$/fig/6/error_7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_8.png" afterPath="$PROJECT_DIR$/fig/6/error_8.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fig/6/error_9.png" afterPath="$PROJECT_DIR$/fig/6/error_9.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/_sources/index.txt" afterPath="$PROJECT_DIR$/doc/_build/html/_sources/index.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/index.html" afterPath="$PROJECT_DIR$/doc/_build/html/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/searchindex.js" afterPath="$PROJECT_DIR$/doc/_build/html/searchindex.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/index.rst" afterPath="$PROJECT_DIR$/doc/index.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/ts_9.rst" afterPath="$PROJECT_DIR$/doc/ts_9.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otvet.txt" afterPath="$PROJECT_DIR$/otvet.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.py" afterPath="$PROJECT_DIR$/run.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_case_3.py" afterPath="$PROJECT_DIR$/test_case_3.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_case_8.py" afterPath="$PROJECT_DIR$/test_case_8.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_case_9.py" afterPath="$PROJECT_DIR$/test_case_9.py" />
+    </list>
+    <list id="b564f262-6120-4326-8a1d-4b97db40e949" name="Rejected commit: Default" comment="Документация перенесена на ГИТ" />
+    <ignored path="selenium2.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="selenium2" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="test_case_8.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_case_8.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="419" column="62" selection-start-line="22" selection-start-column="4" selection-end-line="419" selection-end-column="62" />
+              <folding>
+                <element signature="e#1170#1294#0" expanded="false" />
+                <element signature="e#4084#4552#0" expanded="false" />
+                <element signature="e#4590#5016#0" expanded="false" />
+                <element signature="e#5052#5789#0" expanded="false" />
+                <element signature="e#5838#6498#0" expanded="false" />
+                <element signature="e#6557#8193#0" expanded="false" />
+                <element signature="e#8276#11785#0" expanded="false" />
+                <element signature="e#19114#22295#0" expanded="false" />
+                <element signature="e#22351#22501#0" expanded="false" />
+                <element signature="e#22544#22656#0" expanded="false" />
+                <element signature="e#22711#23010#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="conf.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/conf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="103" column="12" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+              <folding>
+                <element signature="e#24#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_case_9.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_case_9.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1064">
+              <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
+              <folding>
+                <element signature="e#24#54#0" expanded="true" />
+                <element signature="e#630#1228#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pypyodbc.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.4/dist-packages/pypyodbc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="965" column="0" selection-start-line="965" selection-start-column="0" selection-end-line="965" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_case_3.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test_case_3.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="79">
+              <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+              <folding>
+                <element signature="e#745#2070#0" expanded="false" />
+                <element signature="e#2098#2536#0" expanded="false" />
+                <element signature="e#2558#3321#0" expanded="false" />
+                <element signature="e#3752#3929#0" expanded="false" />
+                <element signature="e#3962#4270#0" expanded="false" />
+                <element signature="e#4306#5043#0" expanded="false" />
+                <element signature="e#5096#5436#0" expanded="false" />
+                <element signature="e#5513#9704#0" expanded="false" />
+                <element signature="e#9778#10514#0" expanded="false" />
+                <element signature="e#10184#10507#0" expanded="false" />
+                <element signature="e#10586#14613#0" expanded="false" />
+                <element signature="e#14687#15329#0" expanded="false" />
+                <element signature="e#15396#16048#0" expanded="false" />
+                <element signature="e#16115#16765#0" expanded="false" />
+                <element signature="e#16832#17437#0" expanded="false" />
+                <element signature="e#17509#21503#0" expanded="false" />
+                <element signature="e#21577#22266#0" expanded="false" />
+                <element signature="e#22322#22472#0" expanded="false" />
+                <element signature="e#22515#22627#0" expanded="false" />
+                <element signature="e#22682#22969#0" expanded="false" />
+                <element signature="e#23004#23284#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_1005.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_1005.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <folding>
+                <element signature="e#68#78#0" expanded="true" />
+                <element signature="e#1843#2321#0" expanded="false" />
+                <element signature="e#2349#4023#0" expanded="false" />
+                <element signature="e#4063#5212#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="1005_BAD(серия)_RESULT.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Результаты/1005_BAD(серия)_RESULT.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-627">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.ini" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="500">
+              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config_1005.ini" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config_1005.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="78" column="39" selection-start-line="78" selection-start-column="39" selection-end-line="78" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/HTMLTestRunner.py" />
+        <option value="$PROJECT_DIR$/Шаблоны/Request_1009.xml" />
+        <option value="$PROJECT_DIR$/service_1009.py" />
+        <option value="$PROJECT_DIR$/Результаты/REAL_RESULT.xml" />
+        <option value="$PROJECT_DIR$/Результаты/Test7_RESULT.xml" />
+        <option value="$PROJECT_DIR$/config_1009.ini" />
+        <option value="$PROJECT_DIR$/Шаблоны/RequestInfo.xml" />
+        <option value="$PROJECT_DIR$/Удалить данные района за период.sql" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/test_case_2.py" />
+        <option value="$PROJECT_DIR$/config.ini" />
+        <option value="$PROJECT_DIR$/test_case_4.py" />
+        <option value="$PROJECT_DIR$/test_373.py" />
+        <option value="$PROJECT_DIR$/test_case_1.py" />
+        <option value="$PROJECT_DIR$/test_case_5.py" />
+        <option value="$PROJECT_DIR$/test_case_6.py" />
+        <option value="$PROJECT_DIR$/test_case_7.py" />
+        <option value="$PROJECT_DIR$/smev.py" />
+        <option value="$PROJECT_DIR$/Шаблоны/Request_1005.xml" />
+        <option value="$PROJECT_DIR$/Результаты/1005_1_RESULT.xml" />
+        <option value="$PROJECT_DIR$/Результаты/1005_5_RESULT.xml" />
+        <option value="$PROJECT_DIR$/config_1005.ini" />
+        <option value="$PROJECT_DIR$/test_case_9.py" />
+        <option value="$PROJECT_DIR$/test_1005.py" />
+        <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/test_case_8.py" />
+        <option value="$PROJECT_DIR$/test_case_3.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-1" />
+    <option name="width" value="961" />
+    <option name="height" value="1055" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selenium2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selenium2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selenium2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selenium2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="selenium2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Python" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Автотестирование" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="265" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="267" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="270" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1065" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="265" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="267" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="270" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1065" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Образцы" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Шаблоны" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.test_case_8">
+    <configuration default="false" name="test_case_1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="run" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in test_case_2" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_2.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in case5" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_5.py" />
+      <option name="CLASS_NAME" value="case5" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="sphinx task in doc" type="docs" factoryName="Sphinx task" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/doc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="docutils_input_file" value="$PROJECT_DIR$/doc" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="html" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <method />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Sphinx task">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case_2.py" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case3" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case_4" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case_5" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_5.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case6" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_6.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case_7" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_7.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case_8" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_8.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="test_case_9" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_9.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="unitest.case6" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="/usr/bin/python3.4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="selenium2" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_case_6.py" />
+      <option name="CLASS_NAME" value="case_6" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <list size="14">
+      <item index="0" class="java.lang.String" itemvalue="Python.test_case_2.py" />
+      <item index="1" class="java.lang.String" itemvalue="Python.test_case3" />
+      <item index="2" class="java.lang.String" itemvalue="Python.test_case_4" />
+      <item index="3" class="java.lang.String" itemvalue="Python.test_case_5" />
+      <item index="4" class="java.lang.String" itemvalue="Python.test_case6" />
+      <item index="5" class="java.lang.String" itemvalue="Python.test_case_7" />
+      <item index="6" class="java.lang.String" itemvalue="Python.test_case_8" />
+      <item index="7" class="java.lang.String" itemvalue="Python.test_case_9" />
+      <item index="8" class="java.lang.String" itemvalue="Python.test_case_1" />
+      <item index="9" class="java.lang.String" itemvalue="Python.run" />
+      <item index="10" class="java.lang.String" itemvalue="Python tests.unitest.case6" />
+      <item index="11" class="java.lang.String" itemvalue="Python tests.Unittests in test_case_2" />
+      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in case5" />
+      <item index="13" class="java.lang.String" itemvalue="Python docs.sphinx task in doc" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python docs.sphinx task in doc" />
+        <item index="1" class="java.lang.String" itemvalue="Python.run" />
+        <item index="2" class="java.lang.String" itemvalue="Python.test_case_1" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in case5" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_case_2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bae6df72-b1bf-4b1d-94e7-9feb5d1a446d" name="Default" comment="" />
+      <created>1458728647914</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1458728647914</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Добавлены два теста для выгрузки с выбором не выгружать заявления по детям">
+      <created>1461073313912</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1461073313912</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Добавлен тест для проверки уникальность номеров для 3-х заявлений">
+      <created>1461134041685</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1461134041685</updated>
+    </task>
+    <task id="LOCAL-00003" summary="В сервисе изменен принцип отбора не выгруженных выплат - теперь по выплате. Тест также изменен.">
+      <created>1461241321762</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1461241321762</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Документация перенесена на ГИТ">
+      <created>1461241635009</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1461241635009</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_in_case5 - 2016.04.12 at 17h 02m 37s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_case5 - 2016.04.12 at 17h 03m 52s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_case5 - 2016.04.12 at 17h 04m 49s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_case5 - 2016.04.12 at 17h 05m 27s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_case5 - 2016.04.12 at 17h 07m 02s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_case5 - 2016.04.12 at 17h 11m 35s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_case5 - 2016.04.13 at 10h 08m 54s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_case5 - 2016.04.13 at 10h 11m 07s.xml">
+      <configuration name="Unittests in case5" configurationId="tests" />
+    </history-entry>
+    <history-entry file="unitest_case6 - 2016.04.14 at 09h 57m 10s.xml">
+      <configuration name="unitest.case6" configurationId="tests" />
+    </history-entry>
+    <history-entry file="unitest_case6 - 2016.04.14 at 09h 57m 42s.xml">
+      <configuration name="unitest.case6" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="TodoView" selected-index="4">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-1" y="0" width="961" height="1055" extended-state="4" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3888889" sideWeight="0.49571735" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33190578" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19188192" sideWeight="0.50428265" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40042827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавлены два теста для выгрузки с выбором не выгружать заявления по детям" />
+    <MESSAGE value="Добавлен тест для проверки уникальность номеров для 3-х заявлений" />
+    <MESSAGE value="В сервисе изменен принцип отбора не выгруженных выплат - теперь по выплате. Тест также изменен." />
+    <MESSAGE value="Документация перенесена на ГИТ" />
+    <option name="LAST_COMMIT_MESSAGE" value="Документация перенесена на ГИТ" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/../autotest/asp_tests.py</url>
+          <line>411</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/../autotest/asp_tests.py</url>
+          <line>480</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/lib/python3.4/unittest/case.py</url>
+          <line>589</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_1.py</url>
+          <line>226</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_1.py</url>
+          <line>402</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_1.py</url>
+          <line>808</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_1.py</url>
+          <line>884</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_1.py</url>
+          <line>994</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_1.py</url>
+          <line>272</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_2.py</url>
+          <line>490</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_3.py</url>
+          <line>76</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_3.py</url>
+          <line>123</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_3.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_3.py</url>
+          <line>93</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_1.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test_case_5.py</url>
+          <line>144</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/smev.py</url>
+          <line>140</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="101" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/utrunner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1032">
+          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fig/6/error_1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/222-222-222-31(1)_RESULT.xml" />
+    <entry file="file://$PROJECT_DIR$/fig/1/error_3.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/Тестовая_без_СНИЛС_RESULT.xml" />
+    <entry file="file:///usr/lib/python3.4/unittest/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.4/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="795" column="0" selection-start-line="795" selection-start-column="0" selection-end-line="795" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.4/unittest/suite.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="162" column="0" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_373.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-347">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/111-111-221 45_4.xml" />
+    <entry file="file://$PROJECT_DIR$/fig/1/error_9.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fig/3/error_2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fig/3/error_1.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fig/3/error_8.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HTMLTestRunner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1976">
+          <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2451">
+          <caret line="325" column="94" selection-start-line="325" selection-start-column="72" selection-end-line="325" selection-end-column="94" />
+          <folding>
+            <element signature="e#1108#2856#0" expanded="false" />
+            <element signature="e#3860#4597#0" expanded="false" />
+            <element signature="e#4646#5306#0" expanded="false" />
+            <element signature="e#7044#10482#0" expanded="false" />
+            <element signature="e#10526#13609#0" expanded="false" />
+            <element signature="e#16368#18324#0" expanded="false" />
+            <element signature="e#20346#22636#0" expanded="false" />
+            <element signature="e#22677#26575#0" expanded="false" />
+            <element signature="e#23509#25821#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="874">
+          <caret line="125" column="30" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="30" />
+          <folding>
+            <element signature="e#1168#1422#0" expanded="false" />
+            <element signature="e#1465#3220#0" expanded="false" />
+            <element signature="e#3257#3698#0" expanded="false" />
+            <element signature="e#3736#4154#0" expanded="false" />
+            <element signature="e#4190#4919#0" expanded="false" />
+            <element signature="e#7609#12159#0" expanded="false" />
+            <element signature="e#12192#19703#0" expanded="false" />
+            <element signature="e#19736#22191#0" expanded="false" />
+            <element signature="e#22224#33458#0" expanded="false" />
+            <element signature="e#43337#48118#0" expanded="false" />
+            <element signature="e#48151#54666#0" expanded="false" />
+            <element signature="e#58785#60809#0" expanded="false" />
+            <element signature="e#60852#60964#0" expanded="false" />
+            <element signature="e#61019#61306#0" expanded="false" />
+            <element signature="e#61341#61621#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/ts_6.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/111-111-221 45_9.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_6.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="956">
+          <caret line="671" column="98" selection-start-line="671" selection-start-column="98" selection-end-line="671" selection-end-column="98" />
+          <folding>
+            <element signature="e#1131#1385#0" expanded="false" />
+            <element signature="e#1428#3176#0" expanded="false" />
+            <element signature="e#3213#3681#0" expanded="false" />
+            <element signature="e#3719#4145#0" expanded="false" />
+            <element signature="e#4181#4918#0" expanded="false" />
+            <element signature="e#4967#5627#0" expanded="false" />
+            <element signature="e#5686#7322#0" expanded="false" />
+            <element signature="e#7406#10883#0" expanded="false" />
+            <element signature="e#10968#13493#0" expanded="false" />
+            <element signature="e#13572#16020#0" expanded="false" />
+            <element signature="e#16106#17573#0" expanded="false" />
+            <element signature="e#17659#19476#0" expanded="false" />
+            <element signature="e#19562#21855#0" expanded="false" />
+            <element signature="e#21937#25997#0" expanded="false" />
+            <element signature="e#26081#27490#0" expanded="false" />
+            <element signature="e#27575#30168#0" expanded="false" />
+            <element signature="e#30213#31666#0" expanded="false" />
+            <element signature="e#31722#31872#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_5.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="434" selection-end-column="0" />
+          <folding>
+            <element signature="e#45#75#0" expanded="true" />
+            <element signature="e#1920#3033#0" expanded="false" />
+            <element signature="e#3065#4042#0" expanded="false" />
+            <element signature="e#4095#7486#0" expanded="false" />
+            <element signature="e#9445#9744#0" expanded="false" />
+            <element signature="e#9782#13552#0" expanded="false" />
+            <element signature="e#13593#14227#0" expanded="false" />
+            <element signature="e#14268#14891#0" expanded="false" />
+            <element signature="e#14932#18572#0" expanded="false" />
+            <element signature="e#18628#18778#0" expanded="false" />
+            <element signature="e#18821#18957#0" expanded="false" />
+            <element signature="e#19012#19311#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="476" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
+          <folding>
+            <element signature="e#4352#6240#0" expanded="false" />
+            <element signature="e#6283#9599#0" expanded="false" />
+            <element signature="e#9355#9599#0" expanded="false" />
+            <element signature="e#9640#10874#0" expanded="false" />
+            <element signature="e#14281#15449#0" expanded="false" />
+            <element signature="e#15495#18847#0" expanded="false" />
+            <element signature="e#18888#20143#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_OK(ё)_RESULT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-684">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="60" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_7.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-318">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+          <folding>
+            <element signature="e#989#1113#0" expanded="false" />
+            <element signature="e#1145#1399#0" expanded="false" />
+            <element signature="e#1442#3672#0" expanded="false" />
+            <element signature="e#3709#4177#0" expanded="false" />
+            <element signature="e#4215#4641#0" expanded="false" />
+            <element signature="e#4677#5414#0" expanded="false" />
+            <element signature="e#5463#6123#0" expanded="false" />
+            <element signature="e#6182#7818#0" expanded="false" />
+            <element signature="e#7902#11382#0" expanded="false" />
+            <element signature="e#14058#15487#0" expanded="false" />
+            <element signature="e#15572#18117#0" expanded="false" />
+            <element signature="e#18195#21376#0" expanded="false" />
+            <element signature="e#21432#21582#0" expanded="false" />
+            <element signature="e#21625#21737#0" expanded="false" />
+            <element signature="e#21792#22091#0" expanded="false" />
+            <element signature="e#22126#22406#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/Денежные_REJECT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="22" column="49" selection-start-line="0" selection-start-column="0" selection-end-line="44" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/Денежные_REQUEST.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-399">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/Денежные_RESULT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-570">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="56" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Образцы/WITH_DUL.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="6" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_NODUL_REQUEST.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-513">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_OK_RESULT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-399">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="60" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_NODUL_RESULT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="53" column="36" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_1_REJECT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_1_REQUEST.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Шаблоны/Request_1005.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smev.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-277">
+          <caret line="135" column="5" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fig/9/test_9.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_5_REQUEST.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-95">
+          <caret line="19" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_5_RESULT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.4/dist-packages/pypyodbc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="965" column="0" selection-start-line="965" selection-start-column="0" selection-end-line="965" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_OK_REJECT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="38" column="124" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="124" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_OK_REQUEST.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-342">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_1_RESULT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="51" column="22" selection-start-line="0" selection-start-column="0" selection-end-line="56" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Результаты/1005_BAD(серия)_RESULT.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-627">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config_1005.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="78" column="39" selection-start-line="78" selection-start-column="39" selection-end-line="78" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_1005.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="e#68#78#0" expanded="true" />
+            <element signature="e#1843#2321#0" expanded="false" />
+            <element signature="e#2349#4023#0" expanded="false" />
+            <element signature="e#4063#5212#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="103" column="12" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+          <folding>
+            <element signature="e#24#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_9.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#54#0" expanded="true" />
+            <element signature="e#630#1228#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_8.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="419" column="62" selection-start-line="22" selection-start-column="4" selection-end-line="419" selection-end-column="62" />
+          <folding>
+            <element signature="e#1170#1294#0" expanded="false" />
+            <element signature="e#4084#4552#0" expanded="false" />
+            <element signature="e#4590#5016#0" expanded="false" />
+            <element signature="e#5052#5789#0" expanded="false" />
+            <element signature="e#5838#6498#0" expanded="false" />
+            <element signature="e#6557#8193#0" expanded="false" />
+            <element signature="e#8276#11785#0" expanded="false" />
+            <element signature="e#19114#22295#0" expanded="false" />
+            <element signature="e#22351#22501#0" expanded="false" />
+            <element signature="e#22544#22656#0" expanded="false" />
+            <element signature="e#22711#23010#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_case_3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+          <folding>
+            <element signature="e#745#2070#0" expanded="false" />
+            <element signature="e#2098#2536#0" expanded="false" />
+            <element signature="e#2558#3321#0" expanded="false" />
+            <element signature="e#3752#3929#0" expanded="false" />
+            <element signature="e#3962#4270#0" expanded="false" />
+            <element signature="e#4306#5043#0" expanded="false" />
+            <element signature="e#5096#5436#0" expanded="false" />
+            <element signature="e#5513#9704#0" expanded="false" />
+            <element signature="e#9778#10514#0" expanded="false" />
+            <element signature="e#10184#10507#0" expanded="false" />
+            <element signature="e#10586#14613#0" expanded="false" />
+            <element signature="e#14687#15329#0" expanded="false" />
+            <element signature="e#15396#16048#0" expanded="false" />
+            <element signature="e#16115#16765#0" expanded="false" />
+            <element signature="e#16832#17437#0" expanded="false" />
+            <element signature="e#17509#21503#0" expanded="false" />
+            <element signature="e#21577#22266#0" expanded="false" />
+            <element signature="e#22322#22472#0" expanded="false" />
+            <element signature="e#22515#22627#0" expanded="false" />
+            <element signature="e#22682#22969#0" expanded="false" />
+            <element signature="e#23004#23284#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
