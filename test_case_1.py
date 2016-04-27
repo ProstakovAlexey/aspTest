@@ -116,7 +116,7 @@ class case1(unittest.TestCase):
         # войти
         driver.find_element_by_css_selector("#lbtnLogin > img").click()
 
-
+    #@unittest.skip('Временно пропущен')
     def test_1(self):
         """Заходит в БД, проверяет что не нужно обновить, проверяет что это контрольный пример тест,
         ходит по меню госуслуги"""
@@ -163,6 +163,7 @@ class case1(unittest.TestCase):
         self.assertEqual(driver.find_element_by_id("tdPassword").text, 'Пароль', 'При входе на странице логина не удалось найти текст Пароль')
 
 
+    #@unittest.skip('Временно пропущен')
     def test_2(self):
         """Заходит в меню просмотр информации СМЭВ, проверяет в нем различные элементы на странице"""
         driver = self.driver
@@ -222,6 +223,7 @@ class case1(unittest.TestCase):
         driver.find_element_by_id("ctl00_cph_btnExit").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_3(self):
         """делает настройки для соединения с райнами в БД Контрольный пример для СМЭВ и ЛК."""
         con = self.startConASP()
@@ -345,6 +347,7 @@ class case1(unittest.TestCase):
         driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[4]/img").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_4(self):
         """ Пытается принять заявку (хотя ее нет) и пройти по этапам ее обработки """
 
@@ -396,6 +399,7 @@ class case1(unittest.TestCase):
         driver.find_element_by_id("ctl00_cph_btnExit").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_5(self):
         """ Принимает Заявки на получение льгот на оплату жилья и ЖКУ (ГСП=Льготы на оплату жилья и ЖК услуги)
         :return:
@@ -617,6 +621,7 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
         conASP.close()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_6(self):
         """Загружает второе заявление, которое ляжет как обращение к первому и проверяет, что получилось в БД АСП"""
         # соединение с БД АСП
@@ -802,6 +807,7 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
         conTI.close()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_7(self):
         """"Проверяет чтобы при переключении обращения внутри заявления срабатывало переключение контрола госуслуги и
         отображался статус, комментарий и файл для соответствующей заявки ПГУ/МФЦ."""
@@ -878,6 +884,7 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
         driver.find_element_by_id("ctl00_cph_btnExit").click()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_8(self):
         """ Проверяе известную ошибку, когда при смене комментария для не отправленного решения сбрасывается его статус.
         Тест проверяет, чтобы этого не происходило."""
@@ -990,6 +997,7 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
         conASP.close()
 
 
+    #@unittest.skip('Временно пропущен')
     def test_9(self):
         """Проверяет ошибку, когда при смене комментария для не отправленного решения сбрасывается его статус. Тест проверяет, чтобы этого не происходило."""
         driver = self.driver
@@ -1079,6 +1087,34 @@ and date_Response is not NULL""", ("Данилов", "Борис", "Петров
         if msg:
             self.fail(msg)
         conASP.close()
+
+
+    #@unittest.skip('Временно пропущен')
+    def test_10(self):
+        """Зайти в ПКУ человека и проверить, что заявка одна отображена. Была ошибка, когда она показывалась дважды"""
+        fio = ('Данилов', 'Борис', 'Петрович')
+        driver = self.driver
+        # проверить, что у человека показана только одна заявка
+        # зайти  в поиск и найти ПКУ человека
+        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
+        # зайти в ПКУ человека
+        driver.find_element_by_id("15478").click()
+        # найти таблицу с заявками
+        table = driver.find_element_by_id('ctl00_cph_DGNeedsOnMain')
+        # найти все строки
+        st = table.find_elements_by_tag_name('tr')
+        count = 0
+        for line in st:
+            if line.text.find('Заявки на получение льгот на оплату жилья и ЖКУ') > -1:
+                count += 1
+        self.assertEqual(count, 1, 'Нашли %s заявок в ПКУ. Ожидаем 1' % count)
 
 
     def otvetCheck(self, cur, good):

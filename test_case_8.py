@@ -261,7 +261,8 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
     @unittest.skip('Временно пропущен')
     def test_2_writeZaivl(self):
-        """Регистрирует заявление"""
+        """Регистрирует заявление. Проверяет как записалось заявление. У человека уже должно было быть одно заявление,
+        это сядет к нему как изменение. При этом должно проставится F6 и F6IZM у самой заявки с ПГУ"""
         fio = ('Ежемесячные', 'Денежные', 'Выплаты')
         # захожу в госуслуги
         driver = self.driver
@@ -285,7 +286,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         else:
             self.fail("Не удалось дождаться окна Массовая рег. заявок")
         # вот тут надо нажать на 1, в списке
-        driver.find_element_by_id("ctl00_cph_pnlVidSpiska_Lbn1").click()
+        driver.find_element_by_id("ctl00_cph_pnlVidSpiska_Lbn9").click()
         driver.find_element_by_css_selector("#ctl00_cph_pnl_ViewInfo_lbtnSave > img").click()
         # подождем прогресс запись заявок в БД
         for i in range(10):
@@ -298,13 +299,6 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
             self.fail("Не удалось дождаться записи заявок")
         # выйти из записи
         driver.find_element_by_id("ctl00_cph_lbtnGoBack__4").click()
-
-
-    #@unittest.skip('Временно пропущен')
-    def test_3_checkZaivl(self):
-        """Проверяет как записалось заявление. У человека уже должно было быть одно заявление, это сядет к нему
-        как изменение. При этом должно проставится F6 и F6IZM у самой заявки с ПГУ"""
-        fio = ('Ежемесячные', 'Денежные', 'Выплаты')
         # соединяюсь с БД АСП
         con = self.startConASP()
         cur = con.cursor()
@@ -312,17 +306,19 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         res = cur.execute("select id from F6 where F2_ID in"
                           "(select id from F2 where famil=? and imja=? and otch=?)", fio).fetchone()
         self.assertEqual(1, len(res), 'Ожидали наличие одного F6')
+        f6Id = res[0]
         # проверяет, что у этого заявления 2 IZM
-        res = cur.execute("select count(id) from F6izm where F6_ID=?", res).fetchone()
-        self.assertEqual(2, len(res), 'Ожидали наличие 2-х F6IZM у заявления %s' % res[0])
+        res = cur.execute("select count(id) from F6izm where F6_ID=%s" % f6Id).fetchone()
+        self.assertEqual(2, res[0], 'Ожидали наличие 2-х F6IZM у заявления c F6ID=%s.' % f6Id)
         # проверяет записалось ли F6 и F6IZM в заявление ПГУ
-        res = cur.execute("select count(id) from eService_Request "
-                          "where lastName=? and firstName=? and middleName=? and "
-                          "(F6_ID is not NULL) and F6IZM_ID in not NULL", fio).fetchall()
-        self.assertEqual(1, len(res), 'Ожидали наличие 1-го не нулевого F6IZM')
+        res = cur.execute(
+            "select f6_id, f6izm_id from eService_Request where lastName=? and firstName=? and middleName=?",
+            fio).fetchone()
+        # print(res[0], res[1])
+        self.assertIsNotNone(res[0], 'Ожидали наличие ненулевого F6')
+        self.assertIsNotNone(res[1], 'Ожидали наличие ненулевого F6IZM')
         # закрыть соединение с БД
         con.close()
-
 
 
     @unittest.skip('Временно пропущен')
@@ -364,8 +360,9 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
     @unittest.skip('Временно пропущен')
     def test_4_writeZaivl(self):
-        """Регистрирует заявление, проверяет создание 3-х заявление с заполненными F6 и F6_izm."""
-        fio = ('Пособие', 'Семьям', 'Детям')
+        """Регистрирует заявление. Проверяет как записалось заявление. У человека уже должно было быть одно заявление,
+            и 3 изменения. При этом должно проставится F6 и F6IZM у самой заявки с ПГУ"""
+        fio = ('Ежемесячные', 'Денежные', 'Выплаты')
         # захожу в госуслуги
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
@@ -389,7 +386,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         else:
             self.fail("Не удалось дождаться окна Массовая рег. заявок")
         # вот тут надо нажать на 1, в списке
-        driver.find_element_by_id("ctl00_cph_pnlVidSpiska_Lbn1").click()
+        driver.find_element_by_id("ctl00_cph_pnlVidSpiska_Lbn9").click()
         driver.find_element_by_css_selector("#ctl00_cph_pnl_ViewInfo_lbtnSave > img").click()
         # подождем прогресс запись заявок в БД
         for i in range(10):
@@ -403,86 +400,178 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
             self.fail("Не удалось дождаться записи заявок")
         # выйти из записи
         driver.find_element_by_id("ctl00_cph_lbtnGoBack__4").click()
-        # проверить, как записалось. Для этого человека должно быть создано 2 f6
         # соединяюсь с БД АСП
         con = self.startConASP()
         cur = con.cursor()
-        # получает кол-во заявлений и изменений к ним для человека
-        res = cur.execute("select f6_id, f6izm_id from eService_Request "
-                          "where lastName=? and firstName=? and middleName=?", fio).fetchall()
+        # проверяет, что у человека одно заявление
+        res = cur.execute("select count(id) from F6 where F2_ID in"
+                          "(select id from F2 where famil=? and imja=? and otch=?)", fio).fetchone()
+        self.assertEqual(1, res[0], 'Ожидали наличие одного F6')
+        f6Id = res[0]
+        # проверяет, что у этого заявления 2 IZM
+        res = cur.execute("select count(id) from F6izm where F6_ID=%s" % f6Id).fetchone()
+        self.assertEqual(3, res[0], 'Ожидали наличие 3-х F6IZM у заявления c F6ID=%s.' % f6Id)
+        # проверяет записалось ли F6 и F6IZM в заявление ПГУ
+        res = cur.execute(
+            "select f6_id, f6izm_id from eService_Request where lastName=? and firstName=? and middleName=?",
+            fio).fetchall()
+        for i in res:
+            self.assertIsNotNone(i[0], 'Ожидали наличие ненулевого F6')
+            self.assertIsNotNone(i[1], 'Ожидали наличие ненулевого F6IZM')
         # закрыть соединение с БД
         con.close()
-        # проверяет, что создалось одно заявление и один izm
-        self.assertEqual(3, len(res), 'Ожидали создание 1-х F6 и F6_izm')
-        # проверяет, что каждый F6 и F6_IZM заполен
-        for i in res:
-            self.assertTrue(i[0], 'F6 должен быть заполнен')
-            self.assertTrue(i[1], 'F6_IZM должен быть пустой')
 
 
     @unittest.skip('Временно пропущен')
     def test_5_check3zaiv(self):
-        """Проверит, что во всех 3-х заявления есть обязательные поля:
-        1) уникальный номер заявления
-        2) на обложке вкладка Госуслуги
-        3) в заявлении вкладка Госуслуги"""
-        # словарь ID, по которым переходить
-        id = {'family_4': 'ctl00_cph_grdMain_ctl04_lbtnGotoZayv',
-              'family_3': 'ctl00_cph_grdMain_ctl03_lbtnGotoZayv',
-              'family_2': 'ctl00_cph_grdMain_ctl02_lbtnGotoZayv'}
-        # список уникальных номеров заявлений в АСП
-        num = list()
-        # захожу в госуслуги
+        """Проверит, что у человека в ПКУ только одно заявлени. Пройти в это заявление, проверить:
+        1) изменение от 22.04.2014  нет вкладки Госуслуги
+        2) изменение от 29.03.2016 есть вкладка Госуслуги
+        3) изменение от 11.04.2016 есть вкладка Госуслуги"""
+        fio = ('Ежемесячные', 'Денежные', 'Выплаты')
         driver = self.driver
-        driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
-        # устанавливаю фильтр по ФИО
-        fio = ('Пособие', 'Семьям', 'Детям')
-        self.madeFiltr(driver, fio)
-        # перебираю 3 заявления
-        for key in id.keys():
+        # проверить, что у человека показана только одна заявка
+        # зайти  в поиск и найти ПКУ человека
+        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
+        # зайти в ПКУ человека
+        driver.find_element_by_id("15492").click()
+        # найти таблицу с заявками
+        table = driver.find_element_by_id('ctl00_cph_DGNeedsOnMain')
+        # найти все строки
+        st = table.find_elements_by_tag_name('tr')
+        count = 0
+        for line in st:
+            if line.text.find('Заявка на выдачу проездного билета(ЕСПБ РЛ)')>-1:
+                count += 1
+        self.assertEqual(count, 1, 'Нашли %s заявок в ПКУ. Ожидаем 1' % count)
+        # зайти в заявление
+        driver.find_element_by_id(
+            "ctl00_cph_DGNeedsOnMain_ctl02_Common/EditZayv.aspx?k_gsp=2&id=15492&id_zayv=9430").click()
+        # проверить обращение от 11.04.2016
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("11.04.2016")
+        # проверить, что есть вкладка госуслуги
+        self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
+            'Для обращения от 11.04.2016 нет вкладки Госуслуги')
+        # проверить, что есть контроль госуслуги
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
+            'Для обращения от 11.04.2016 нет контрола Госуслуги')
+        s = driver.find_element_by_css_selector('#ctl00_cph_TopStr_GosUslTop').text
+        if (s.find('Подано через портал ГосУслуг')==-1):
+            self.fail('Для обращения от 11.04.2016 в контроле госуслуг должно быть написано Подано через портал ....')
 
-            # проверить на обложке. Заходит в заявление
-            driver.find_element_by_id(id[key]).click()
-            # поверить наличие номера заявления
-            n = driver.find_element_by_id('igtxtctl00_cph_tbNzayv').get_attribute('value')
-            # записать его в список номеров
-            num.append(n)
-            # проверить, что есть госуслуги на обложке
-            try:
-                driver.find_element_by_id('ctl00_cph_pnlGosUsl')
-            except:
-                self.fail('Для заявления %s нет вкладки Госуслуги на обложке' % key)
 
-            # проверить внутри заявления. Зайти во внутрь заявления
-            driver.find_element_by_id('ctl00_cph_lbtnDokum').click()
-            # проверить, что есть вкладка госуслуги
-            try:
-                driver.find_element_by_id('ctl00_cph_tabtd12')
-            except:
-                self.fail('Для заявления %s нет вкладки Госуслуги внутри заявления' % key)
-            # перейти на вкладку дети
-            driver.find_element_by_id('ctl00_cph_tabtd1').click()
-            # проверить, что есть ребенок ФамилияРебенка ИмяРебенка ОтчествоРебенка
-            s = driver.page_source
-            if s.find('ФамилияРебенка ИмяРебенка ОтчествоРебенка')<0:
-                self.fail('Для заявления %s на вкладке Дети не нашли ФИО ребенка' % key)
-            # перейти на вкладку Кому выплачивается
-            driver.find_element_by_id('ctl00_cph_tabtd3').click()
-            # проверить получателя
-            pol = driver.find_element_by_id('ctl00_cph_tab__ctl3_PayInfo1_lblPoluch').text
-            self.assertEqual(pol, '01:01:0011577 Пособие Семьям Детям')
-            # проверит направление выплаты
-            pol = driver.find_element_by_id('ctl00_cph_tab__ctl3_PayInfo1_lblDirectionPay').text
-            self.assertEqual(pol, 'Списки (касса учреждения)')
-            # выходит на обложку
-            driver.find_element_by_id("ctl00_cph_TopStr_lbtnTopStr_Exit").click()
-            #  выходит из заявки
-            driver.find_element_by_id("ctl00_cph_lbtnExit").click()
-        # проверить, что все номера уникальные.
-        # Способ проверки - через множества - http://younglinux.info/python/task/uniqueness
-        setnum = set(num)
-        self.assertEqual(len(num), len(setnum),
-                         'Найдены не уникальные номера заявлений в АСП. Список номеров: %s' % num)
+        # проверить обращение от 29.03.2016
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("29.03.2016")
+        driver.find_element_by_css_selector("option[value=\"9095\"]").click()
+        # проверить, что есть вкладка госуслуги
+        self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
+                                                'Для обращения от 29.03.2016 нет вкладки Госуслуги')
+        # проверить, что есть контроль госуслуги
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
+                        'Для обращения от 29.03.2016 нет контрола Госуслуги')
+        s = driver.find_element_by_css_selector('#ctl00_cph_TopStr_GosUslTop').text
+        if (s.find('Подано через портал ГосУслуг') == -1):
+            self.fail('Для обращения от 29.03.2016 в контроле госуслуг должно быть написано Подано через портал ....')
+
+        # проверить обращение от 22.04.2016
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("22.04.2014")
+        driver.find_element_by_css_selector("option[value=\"9080\"]").click()
+        # проверить, что есть вкладка госуслуги
+        self.assertFalse(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
+                                                'Для обращения от 22.04.2014 не должно быть  вкладки Госуслуги')
+        # проверить, что есть контроль госуслуги
+        self.assertFalse(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
+                        'Для обращения от 22.04.2014 не должно быть контрола Госуслуги')
+
+    #@unittest.skip('Временно пропущен')
+    def test_6_check3zaiv(self):
+        """Проверить способ выплаты у человека по всем обращениям. Способ выплаты из должен из первого обращения
+        (22.04.2014) перенестись в два других (29.03.2016, 11.04.2016). Проверить, что номер транспортной карты
+        перенесен из 1-го обращения в два других."""
+        fio = ('Ежемесячные', 'Денежные', 'Выплаты')
+        driver = self.driver
+        # зайти  в поиск и найти ПКУ человека
+        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
+        # зайти в ПКУ человека
+        driver.find_element_by_id("15492").click()
+        # зайти в заявление
+        driver.find_element_by_id(
+            "ctl00_cph_DGNeedsOnMain_ctl02_Common/EditZayv.aspx?k_gsp=2&id=15492&id_zayv=9430").click()
+
+        # проверить обращение от 22.04.2014
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("22.04.2014")
+        # зайти на вкладку Кому выплачивать
+        driver.find_element_by_id('ctl00_cph_lbtab3').click()
+        # получить направление выплат
+        pay = driver.find_element_by_id('ctl00_cph_PayInfo1_lblDirectionPay').text
+        # Перейти во вкладку Доп. информация
+        driver.find_element_by_id('ctl00_cph_lbtab0').click()
+        # Получить номер транспорной карты
+        card = driver.find_element_by_id('ctl00_cph_AddInfoZayv1_tbNumTelephone').get_attribute('value')
+        #
+        # Проверить, что направление выплаты соответствует образцу
+        self.assertEqual('Выплатные ведомости (отд. связи/доставки)', pay,
+                    'Способ выплаты в обращении от 22.04.2014 не равен Выплатные ведомости (отд. связи/доставки')
+        # Проверить, что номер карты = 1234567890
+        self.assertEqual('1234567890', card, 'Номер карты в обращении 22.04.2014 не равен 1234567890')
+        # Проверить тип транспортной карты
+        sel = Select(driver.find_element_by_id('ctl00_cph_AddInfoZayv1_ddlTipCard'))
+        photo = sel.first_selected_option.text
+        self.assertEqual(photo, 'с фотографией', 'В обращении от 22.04.2014 должно быть установлено в с фотографией')
+
+        # проверить обращение от 29.03.2016
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("29.03.2016")
+        driver.find_element_by_css_selector("option[value=\"9095\"]").click()
+        # зайти на вкладку Кому выплачивать
+        driver.find_element_by_id('ctl00_cph_lbtab3').click()
+        # получить направление выплат
+        pay1 = driver.find_element_by_id('ctl00_cph_PayInfo1_lblDirectionPay').text
+        # Перейти во вкладку Доп. информация
+        driver.find_element_by_id('ctl00_cph_lbtab0').click()
+        # Получить номер транспорной карты
+        card1 = driver.find_element_by_id('ctl00_cph_AddInfoZayv1_tbNumTelephone').get_attribute('value')
+        # Проверить тип транспортной карты
+        sel = Select(driver.find_element_by_id('ctl00_cph_AddInfoZayv1_ddlTipCard'))
+        photo1 = sel.first_selected_option.text
+        self.assertEqual(pay, pay1,
+            'Способ выплаты в обращении от 29.03.2016 не совпадает со способом выплат из обр. 22.04.2014')
+        self.assertEqual(card, card1,
+            'Номер транспортной карты в обращении от 29.03.2016 не совпадает с номером из обр. 22.04.2014')
+        self.assertEqual(photo, photo1,'Тип транспортной карты в обращении от 29.03.2016 должно совпадать с 22.04.2014')
+
+        # проверить обращение от 22.04.2016
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("22.04.2014")
+        driver.find_element_by_css_selector("option[value=\"9080\"]").click()
+        # зайти на вкладку Кому выплачивать
+        driver.find_element_by_id('ctl00_cph_lbtab3').click()
+        # получить направление выплат
+        pay1 = driver.find_element_by_id('ctl00_cph_PayInfo1_lblDirectionPay').text
+        # Перейти во вкладку Доп. информация
+        driver.find_element_by_id('ctl00_cph_lbtab0').click()
+        # Получить номер транспорной карты
+        card1 = driver.find_element_by_id('ctl00_cph_AddInfoZayv1_tbNumTelephone').get_attribute('value')
+        # Проверить тип транспортной карты
+        sel = Select(driver.find_element_by_id('ctl00_cph_AddInfoZayv1_ddlTipCard'))
+        photo2 = sel.first_selected_option.text
+        self.assertEqual(pay, pay1,
+                         'Способ выплаты в обращении от 22.04.2016 не совпадает со способом выплат из обр. 22.04.2014')
+        self.assertEqual(card, card1,
+                         'Номер транспортной карты в обращении от 22.04.2016 не совпадает с номером из обр. 22.04.2014')
+        self.assertEqual(photo, photo2, 'Тип транспортной карты в обращении от 22.04.2016 должно совпадать с 22.04.2014')
 
 
     def is_element_present(self, how, what):
