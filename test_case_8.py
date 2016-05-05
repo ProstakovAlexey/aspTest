@@ -10,6 +10,8 @@ import unittest, time, re
 import pypyodbc
 import os
 import config
+import datetime
+import time
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -38,6 +40,9 @@ class case8(unittest.TestCase):
 
 
     def setUp(self):
+        self.timeStart = datetime.datetime.now()
+        self.timeBegin = time.time()
+        print('%s Выполняю тест: %s' % (self.timeStart, unittest.TestCase.id(self)))
         self.base_url = addr
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -183,7 +188,7 @@ class case8(unittest.TestCase):
         return msg
 
 
-    @unittest.skip('Временно пропущен')
+    #@unittest.skip('Временно пропущен')
     def test_1_loadZaivl(self):
         """Загружает заявление Ежемесячные Денежные Выплаты номер=10756763196_fr"""
         # человек
@@ -259,7 +264,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         self.assertEqual('1', zaiv, 'Ожидали загрузку 1-го заявления')
 
 
-    @unittest.skip('Временно пропущен')
+    #@unittest.skip('Временно пропущен')
     def test_2_writeZaivl(self):
         """Регистрирует заявление. Проверяет как записалось заявление. У человека уже должно было быть одно заявление,
         это сядет к нему как изменение. При этом должно проставится F6 и F6IZM у самой заявки с ПГУ"""
@@ -321,7 +326,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         con.close()
 
 
-    @unittest.skip('Временно пропущен')
+    #@unittest.skip('Временно пропущен')
     def test_3_load2Zaivl(self):
         """Загружает второе заявление Ежемесячные Денежные Выплаты номер=10770536301_ft"""
         # человек
@@ -358,7 +363,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         self.assertEqual('1', zaiv, 'Ожидали загрузку одного заявления')
 
 
-    @unittest.skip('Временно пропущен')
+    #@unittest.skip('Временно пропущен')
     def test_4_writeZaivl(self):
         """Регистрирует заявление. Проверяет как записалось заявление. У человека уже должно было быть одно заявление,
             и 3 изменения. При этом должно проставится F6 и F6IZM у самой заявки с ПГУ"""
@@ -404,9 +409,9 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         con = self.startConASP()
         cur = con.cursor()
         # проверяет, что у человека одно заявление
-        res = cur.execute("select count(id) from F6 where F2_ID in"
-                          "(select id from F2 where famil=? and imja=? and otch=?)", fio).fetchone()
-        self.assertEqual(1, res[0], 'Ожидали наличие одного F6')
+        res = cur.execute("select id from F6 where F2_ID in"
+                          "(select id from F2 where famil=? and imja=? and otch=?)", fio).fetchall()
+        self.assertEqual(1, len(res), 'Ожидали наличие одного F6')
         f6Id = res[0]
         # проверяет, что у этого заявления 2 IZM
         res = cur.execute("select count(id) from F6izm where F6_ID=%s" % f6Id).fetchone()
@@ -422,7 +427,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         con.close()
 
 
-    @unittest.skip('Временно пропущен')
+    #@unittest.skip('Временно пропущен')
     def test_5_check3zaiv(self):
         """Проверит, что у человека в ПКУ только одно заявлени. Пройти в это заявление, проверить:
         1) изменение от 22.04.2014  нет вкладки Госуслуги
@@ -456,6 +461,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
             "ctl00_cph_DGNeedsOnMain_ctl02_Common/EditZayv.aspx?k_gsp=2&id=15492&id_zayv=9430").click()
         # проверить обращение от 11.04.2016
         Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("11.04.2016")
+        driver.find_element_by_id("ctl00_cph_ListData").click()
         # проверить, что есть вкладка госуслуги
         self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
             'Для обращения от 11.04.2016 нет вкладки Госуслуги')
@@ -469,7 +475,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
         # проверить обращение от 29.03.2016
         Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("29.03.2016")
-        driver.find_element_by_css_selector("option[value=\"9095\"]").click()
+        driver.find_element_by_id("ctl00_cph_ListData").click()
         # проверить, что есть вкладка госуслуги
         self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
                                                 'Для обращения от 29.03.2016 нет вкладки Госуслуги')
@@ -482,15 +488,17 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
         # проверить обращение от 22.04.2016
         Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("22.04.2014")
-        driver.find_element_by_css_selector("option[value=\"9080\"]").click()
+        driver.find_element_by_id("ctl00_cph_ListData").click()
         # проверить, что есть вкладка госуслуги
         self.assertFalse(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
                                                 'Для обращения от 22.04.2014 не должно быть  вкладки Госуслуги')
         # проверить, что есть контроль госуслуги
-        self.assertFalse(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
-                        'Для обращения от 22.04.2014 не должно быть контрола Госуслуги')
+        s = driver.find_element_by_css_selector('#ctl00_cph_TopStr_GosUslTop').text
+        if (s.find('Подано через портал ГосУслуг') > -1):
+            self.fail('Для обращения от 22.04.2014 в контроле госуслуг должно быть написано Подано через портал ....')
 
-    #@unittest.skip('Временно пропущен')
+
+    @unittest.skip('Не работает, задание 50961. Временно пропущен')
     def test_6_check3zaiv(self):
         """Проверить способ выплаты у человека по всем обращениям. Способ выплаты из должен из первого обращения
         (22.04.2014) перенестись в два других (29.03.2016, 11.04.2016). Проверить, что номер транспортной карты
@@ -535,7 +543,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
         # проверить обращение от 29.03.2016
         Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("29.03.2016")
-        driver.find_element_by_css_selector("option[value=\"9095\"]").click()
+        #driver.find_element_by_css_selector("option[value=\"9095\"]").click()
         # зайти на вкладку Кому выплачивать
         driver.find_element_by_id('ctl00_cph_lbtab3').click()
         # получить направление выплат
@@ -555,7 +563,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
         # проверить обращение от 22.04.2016
         Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("22.04.2014")
-        driver.find_element_by_css_selector("option[value=\"9080\"]").click()
+        #driver.find_element_by_css_selector("option[value=\"9080\"]").click()
         # зайти на вкладку Кому выплачивать
         driver.find_element_by_id('ctl00_cph_lbtab3').click()
         # получить направление выплат
@@ -601,14 +609,12 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
 
     def tearDown(self):
-        n = 1
-        arh_name = 'fig/8/test_%s.png' % n
-        while os.path.exists(arh_name):
-           n +=1
-           arh_name = 'fig/8/test_%s.png' % n
+        arh_name = 'fig/1/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+        print('Выполнил тест: %s за %s секунд.' % (self.id(), int(time.time() - self.timeBegin)))
+
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest, time, datetime, re
 import pypyodbc
 import os
 import hashlib
@@ -34,6 +34,9 @@ class case1(unittest.TestCase):
 
 
     def setUp(self):
+        self.timeStart = datetime.datetime.now()
+        self.timeBegin = time.time()
+        print('%s Выполняю тест: %s' % (self.timeStart, self.id()))
         self.base_url = addr
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -809,8 +812,9 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
 
     #@unittest.skip('Временно пропущен')
     def test_7(self):
-        """"Проверяет чтобы при переключении обращения внутри заявления срабатывало переключение контрола госуслуги и
-        отображался статус, комментарий и файл для соответствующей заявки ПГУ/МФЦ."""
+        """"Проверяет чтобы при переключении обращения внутри заявления имелся контрол подано с госуслуг
+        срабатывало переключение контрола госуслуги и отображался статус, комментарий и файл для соответствующей
+        заявки ПГУ/МФЦ."""
         nom = '12744214221'
         driver = self.driver
         # заходит в просмотр ПГУ/МФЦ
@@ -855,6 +859,14 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
         self.assertEqual(status.first_selected_option.text, veryf['status'],
             'ОШИБКА при проверке заявления №%s! Вместо статуса <%s> нашли <%s>\n' %
                          (veryf['nom'], veryf['status'], status.first_selected_option.text))
+        # Проверить, что есть контроль госуслуги
+        key = '10734214222'
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
+                        'Для заявления %s нет контрола Госуслуги' % key)
+        # Проверить, что контрол не пустой
+        s = driver.find_element_by_css_selector('#ctl00_cph_TopStr_GosUslTop').text
+        if (s.find('Подано через портал ГосУслуг') == -1):
+            self.fail('Для заявления %s в контроле должно быть написано Подано через портал ГосУслуг' % key)
 
         # выбрать для проверка обращение от 17.03.2016
         veryf = dict(status='Исполнено',
@@ -877,7 +889,14 @@ update EService_Request set exportDate=NULL, exportFile=NULL where EService_User
         if status.first_selected_option.text != veryf['status']:
             self.fail('ОШИБКА при проверке заявления №%s! Вместо статуса <%s> нашли <%s>\n' % \
                    (veryf['nom'], veryf['status'], status.first_selected_option.text))
-
+        # Проверить, что есть контроль госуслуги
+        key = '12744214221'
+        self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
+                            'Для заявления %s нет контрола Госуслуги' % key)
+        # Проверить, что контрол не пустой
+        s = driver.find_element_by_css_selector('#ctl00_cph_TopStr_GosUslTop').text
+        if (s.find('Подано через портал ГосУслуг') == -1):
+            self.fail('Для заявления %s в контроле должно быть написано Подано через портал ГосУслуг' % key)
         # выход из заявки
         driver.find_element_by_id("ctl00_cph_TopStr_lbtnTopStr_SaveExit").click()
         # выход в главное
@@ -1189,15 +1208,19 @@ and date_Response is not NULL""", ("Данилов", "Борис", "Петров
         finally: self.accept_next_alert = True
 
 
+    def is_element_present(self, how, what):
+        try:
+            self.driver.find_element(by=how, value=what)
+        except NoSuchElementException as e:
+            return False
+        return True
+
     def tearDown(self):
-        n = 1
-        arh_name = 'fig/1/error_%s.png' % n
-        while os.path.exists(arh_name):
-           n +=1
-           arh_name = 'fig/1/error_%s.png' % n
+        arh_name = 'fig/1/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+        print('Выполнил тест: %s за %s секунд.' % (self.id(), int(time.time() - self.timeBegin)))
 
 
 if __name__ == '__main__':

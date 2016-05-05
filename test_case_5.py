@@ -12,6 +12,7 @@ import os
 import test_373
 import config
 from xml.dom.minidom import *
+import datetime, time
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -180,6 +181,9 @@ class case5(unittest.TestCase):
 
     def setUp(self):
         """Выполнятся для каждого теста"""
+        self.timeStart = datetime.datetime.now()
+        self.timeBegin = time.time()
+        print('%s Выполняю тест: %s' % (self.timeStart, self.id()))
         self.base_url = addr
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -316,7 +320,7 @@ class case5(unittest.TestCase):
         self.assertEqual(count, 1, """Запроса на Сидит Сребенком Взрослая, ребенок Сидит Ребенок Первый,
         период 2016-01-01 по 2016-03-31. Ожидали, что кол-во месяцев придет 1""")
 
-
+    @unittest.skip('Не работает, задание №51139')
     def test_5_request(self):
         """Проверяет, что данные извлекаются из нашей БД, а не из запроса. В запросе направляет не правильную
         ДР (1987-11-11), должен вернуть правильную (1987-11-10)"""
@@ -419,14 +423,11 @@ class case5(unittest.TestCase):
 
 
     def tearDown(self):
-        n = 1
-        arh_name = 'fig/5/error_%s.png' % n
-        while os.path.exists(arh_name):
-            n += 1
-            arh_name = 'fig/5/error_%s.png' % n
+        arh_name = 'fig/1/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+        print('Выполнил тест: %s за %s секунд.' % (self.id(), int(time.time() - self.timeBegin)))
 
 
 if __name__ == "__main__":

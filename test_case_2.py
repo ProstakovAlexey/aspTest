@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest, time, datetime, re
 import pypyodbc
 import os
 import config
@@ -28,6 +28,9 @@ class case2(unittest.TestCase):
             os.remove(dir+f)
 
     def setUp(self):
+        self.timeStart = datetime.datetime.now()
+        self.timeBegin = time.time()
+        print('%s Выполняю тест: %s' % (self.timeStart, self.id()))
         self.base_url = addr
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -566,14 +569,11 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
 
     def tearDown(self):
-        n = 1
-        arh_name = 'fig/2/error_%s.png' % n
-        while os.path.exists(arh_name):
-           n +=1
-           arh_name = 'fig/2/error_%s.png' % n
+        arh_name = 'fig/1/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+        print('Выполнил тест: %s за %s секунд.' % (self.id(), int(time.time() - self.timeBegin)))
 
 
 if __name__ == "__main__":

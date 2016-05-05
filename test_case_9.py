@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest, time, datetime, re
 import pypyodbc
 import os, sys
 import test_1005
@@ -72,7 +72,9 @@ class case9(unittest.TestCase):
 
 
     def setUp(self):
-        pass
+        self.timeStart = datetime.datetime.now()
+        self.timeBegin = time.time()
+        print('%s Выполняю тест: %s' % (self.timeStart, self.id()))
 
 
     def goMainASP(self):
@@ -323,7 +325,7 @@ class case9(unittest.TestCase):
 
 
     def tearDown(self):
-        pass
+        print('Выполнил тест: %s за %s секунд.' % (self.id(), int(time.time() - self.timeBegin)))
 
 
 if __name__ == "__main__":

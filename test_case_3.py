@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+import unittest, time, datetime, re
 import pypyodbc
 import os, sys
 import hashlib
@@ -96,6 +96,11 @@ def delLK(DB):
         print("Возникла ошибка при соединении с БД АСП")
         exit(1)
     cur = conLK.cursor()
+    idList = cur.execute("select EService_Users_id from F2 where nps='111-111-221 45' or nps='11111122145'").fetchall()
+    for id in idList:
+        if id[0]!=17:
+            print('Кроме района 17(Энск), человек найден в районе: %s. Там у него будет удален СНИЛС' % id[0])
+            cur.execute("update F2 set nps=NULL where nps='111-111-221 45' or nps='11111122145' and EService_Users_id=?", id)
     print('Начинаю удаление данных ЛК для района ЭНСК')
     cur.execute(req)
     conLK.commit()
@@ -116,11 +121,13 @@ class case3(unittest.TestCase):
         for dir in dirList:
             for f in os.listdir(dir):
                 os.remove(dir+f)
-        delLK(LK)
+
 
 
     def setUp(self):
-
+        self.timeStart = datetime.datetime.now()
+        self.timeBegin = time.time()
+        print('%s Выполняю тест: %s' % (self.timeStart, self.id()))
         self.base_url = 'http://%s:%s/%s/' % (ASP['adr'], ASP['port'], ASP['url'])
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
@@ -167,6 +174,19 @@ class case3(unittest.TestCase):
         """ Выгружает ПКУ для ЛК за 2013г.
         :return:
         """
+        delLK(LK)
+        # направить запрос, чтобы убедится что выплат нет
+        IS = TI
+        snilsDict = {'111-111-221 45': 0}
+        # перебирает тестовые СНИЛС
+        for snils in snilsDict.keys():
+            # направляет запрос в сервис по СНИЛС
+            result = sendJam(IS, snils)
+            with open('Результаты/' + snils + '_1.xml', encoding='utf-8', mode='w') as f:
+                f.write(result)
+            summ = parseJam(result)
+            self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого в тесте №1')
+
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # захожу в выгрузку на ТИ
@@ -258,7 +278,7 @@ class case3(unittest.TestCase):
             with open('Результаты/'+snils+'_2.xml', encoding='utf-8', mode='w') as f:
                 f.write(result)
             summ = parseJam(result)
-            self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого в тесте №4')
+            self.assertEqual(summ, snilsDict[snils], 'Не совпадает сумма итого в тесте №2')
 
 
     #@unittest.skip('временно отключен')
@@ -523,14 +543,11 @@ class case3(unittest.TestCase):
 
 
     def tearDown(self):
-        n = 1
-        arh_name = 'fig/3/error_%s.png' % n
-        while os.path.exists(arh_name):
-           n +=1
-           arh_name = 'fig/3/error_%s.png' % n
+        arh_name = 'fig/1/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
+        print('Выполнил тест: %s за %s секунд.' % (self.id(), int(time.time() - self.timeBegin)))
 
 
 if __name__ == "__main__":
