@@ -9,6 +9,7 @@ import unittest, time, datetime, re
 import pypyodbc
 import os, sys
 import config
+import forSeleniumTests
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -428,10 +429,15 @@ class case11(unittest.TestCase):
             # Проверить наличие вкладки госуслуги
             self.assertTrue(self.is_element_present(By.ID, 'ctl00cphpnlGosUsl_header'),
                             'Для заявления %s нет вкладки Госуслуги' % key)
+            # проверить, что внутри контрола есть все поля
+            err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_pnlGosUsl_guResp1')
+            if err:
+                self.fail('При проверке контрола госуслуги на обложке заявления %s найдены ошибки:\n%s' % (key, err))
             # Проверить, что есть контроль госуслуги
             id = "td.StandartHeader > span"
             self.assertTrue(self.is_element_present(By.CSS_SELECTOR, id),
                                  'Для заявления %s нет контрола Госуслуги' % key)
+
             # Проверить, что контрол не пустой
             s = driver.find_element_by_css_selector(id).text
             if (s.find('Подано через портал ГосУслуг') == -1):
@@ -444,6 +450,12 @@ class case11(unittest.TestCase):
             # Проверить наличие вкладки госуслуги
             self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
                             'Для заявления %s нет вкладки Госуслуги' % key)
+            # зайти во вкладку
+            driver.find_element_by_id('ctl00_cph_tdTabGosUsl').click()
+            # проверить, что внутри контрола есть все поля
+            err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_guResp1')
+            if err:
+                self.fail('При проверке контрола госуслуги внутри заявления %s найдены ошибки:\n%s' % (key, err))
             # Проверить, что есть контроль госуслуги
             id = "#ctl00_cph_TopStr_GosUslTop"
             self.assertTrue(self.is_element_present(By.CSS_SELECTOR, id),
