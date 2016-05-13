@@ -10,6 +10,7 @@ import unittest, time, datetime, re
 import pypyodbc
 import os
 import config
+import forSeleniumTests
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -38,7 +39,7 @@ class case7(unittest.TestCase):
         print('%s Выполняю тест: %s' % (self.timeStart, self.id()))
         self.base_url = addr
         self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(10)
         self.driver.get(self.base_url+'Login.aspx')
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -440,7 +441,11 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
                 driver.find_element_by_id('ctl00_cph_pnlGosUsl')
             except:
                 self.fail('Для заявления %s нет вкладки Госуслуги на обложке' % key)
-
+            else:
+                # проверить, что внутри контрола есть все поля
+                err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_pnlGosUsl_guResp1')
+                if err:
+                    self.fail('При проверке контрола госуслуги на обложке заявления %s найдены ошибки:\n%s' % (key, err))
             # проверить внутри заявления. Зайти во внутрь заявления
             driver.find_element_by_id('ctl00_cph_lbtnDokum').click()
             # проверить, что есть вкладка госуслуги
@@ -448,6 +453,13 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
                 driver.find_element_by_id('ctl00_cph_tabtd12')
             except:
                 self.fail('Для заявления %s нет вкладки Госуслуги внутри заявления' % key)
+            else:
+                # зайти во вкладку госуслуги
+                driver.find_element_by_id('ctl00_cph_tabtd12').click()
+                # проверить, что внутри контрола есть все поля
+                err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_uwtTabs__ctl12_guResp1')
+                if err:
+                    self.fail('При проверке контрола госуслуги внутри заявления %s найдены ошибки:\n%s' % (key, err))
             # перейти на вкладку дети
             driver.find_element_by_id('ctl00_cph_tabtd1').click()
             # проверить, что есть ребенок ФамилияРебенка ИмяРебенка ОтчествоРебенка
@@ -500,7 +512,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
 
     def tearDown(self):
-        arh_name = 'fig/1/%s.png' % self.id()
+        arh_name = 'fig/7/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)

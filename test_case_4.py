@@ -380,8 +380,8 @@ class case4(unittest.TestCase):
         driver.find_element_by_id('ctl00_cph_UltraWebTab1td1').click()
         # запускает отправка в 1009
         driver.find_element_by_id('ctl00_cph_UltraWebTab1__ctl1_lbSendFilePortal').click()
-        # ждет, когда отработает прогресс бар (30 мин)
-        for i in range(60):
+        # ждет, когда отработает прогресс бар (5 мин)
+        for i in range(10):
             try:
                 p = driver.find_element_by_css_selector("b > b")
                 break
@@ -491,7 +491,7 @@ class case4(unittest.TestCase):
 
 
     def tearDown(self):
-        arh_name = 'fig/1/%s.png' % self.id()
+        arh_name = 'fig/4/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)

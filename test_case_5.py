@@ -320,9 +320,9 @@ class case5(unittest.TestCase):
         self.assertEqual(count, 1, """Запроса на Сидит Сребенком Взрослая, ребенок Сидит Ребенок Первый,
         период 2016-01-01 по 2016-03-31. Ожидали, что кол-во месяцев придет 1""")
 
-    @unittest.skip('Не работает, задание №51139')
+    #@unittest.skip('Не работает, задание №51139')
     def test_5_request(self):
-        """Проверяет, что данные извлекаются из нашей БД, а не из запроса. В запросе направляет не правильную
+        """Не работает, задание №51139. Проверяет, что данные извлекаются из нашей БД, а не из запроса. В запросе направляет не правильную
         ДР (1987-11-11), должен вернуть правильную (1987-11-10)"""
         people = dict(parentFamil='Сидит', parentName='Сребенком', parentOtch='Взрослая',
                       parentDrog='1987-11-11', parentSnils='55555555501', parentDoc='70 01 456123',
@@ -423,7 +423,7 @@ class case5(unittest.TestCase):
 
 
     def tearDown(self):
-        arh_name = 'fig/1/%s.png' % self.id()
+        arh_name = 'fig/5/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)

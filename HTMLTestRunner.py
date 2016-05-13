@@ -400,6 +400,7 @@ a.popup_link:hover {
 <h1>%(title)s</h1>
 %(parameters)s
 <p class='description'>%(description)s</p>
+<p class='description'>Описание тестов по ссылке http://192.168.0.104/doc/</p>
 </div>
 
 """ # variables: (title, parameters, description)

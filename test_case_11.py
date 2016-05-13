@@ -9,7 +9,6 @@ import unittest, time, datetime, re
 import pypyodbc
 import os, sys
 import config
-from pymongo import MongoClient
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -17,6 +16,7 @@ if err > 0:
     print('Ошибка при чтении конфигурационного файла')
     exit(1)
 addr = 'http://%s:%s/%s/' % (ASP['adr'], ASP['port'], ASP['url'])
+fio = ('Социальные', 'Пособия', 'Нуждаемость')
 
 
 def checkZaiv(good, bad):
@@ -37,29 +37,27 @@ def checkZaiv(good, bad):
     return res
 
 
-class case10(unittest.TestCase):
-    """Субсидии на оплату жилья и ЖК услуги.
-    Тестовый человек: Субсидия Оплата Жилья, 01.01.1960
-    Код госуслуги: test_case_10
+class case11(unittest.TestCase):
+    """Социальные пособия (по нуждаемости)
+    Тестовый человек: Социальные Пособия Нуждаемость, 01.01.1980
+    Код госуслуги: test_case_11
     Код района: 159
-    Номера заявлений: test_case_10_1, test_case_10_2, test_case_10_3, test_case_10_4
-    Вид ГСП: Субсидии на оплату жилья и ЖК услуги
-    Вид заявление АСП: Заявки на получение субсидии на оплату жилья и ЖКУ
+    Номера заявлений: test_case_11_1, test_case_11_2, test_case_11_3
+    Вид ГСП: Социальные пособия (по нуждаемости)
+    Вид заявление АСП: Заявка на адресную социальную помощь
     """
     @staticmethod
     def setUpClass():
         # очистить папки
-        dirList = ('fig/10/', 'Результаты/')
+        dirList = ('fig/11/', 'Результаты/')
         for dir in dirList:
             for f in os.listdir(dir):
                 os.remove(dir+f)
 
     def setUp(self):
-        # заполнение словаря со свойствами теста
+        self.timeStart = datetime.datetime.now()
         self.timeBegin = time.time()
-        self.testDict = {'name': self.id().split('.')[-2:], 'start': datetime.datetime.now() }
-
-        print('%s Выполняю тест: %s' % (self.testDict['start'], self.testDict['name']))
+        print('%s Выполняю тест: %s' % (self.timeStart, self.id()))
         # соединиться с БД ТИ и АСП
         DB = TI
         conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8; autocommit=True" \
@@ -91,7 +89,7 @@ class case10(unittest.TestCase):
         self.goMainASP()
 
 
-    def delASP(self, FIO=('Субсидия', 'Оплата', 'Жилья')):
+    def delASP(self, FIO):
         """По тестовому человеку удаляет заявки и все к ним приложенное"""
         cur = self.curASP
         cur.execute("select id from F2 where FAMIL=? and IMJA=? and OTCH=?", FIO)
@@ -118,6 +116,8 @@ class case10(unittest.TestCase):
             (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F6LDOKUM WHERE f6izm_id in (select id from F6IZM where F6_ID in
             (select id from F6 where F2_ID in (%s)))""" % f2_id)
+            cur.execute("""DELETE F6DOKUMP WHERE f6izm_id in (select id from F6IZM where F6_ID in
+                (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F6DOKUMS WHERE f6izm_id in (select id from F6IZM where F6_ID in
                 (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F6DOKUMV where F6IZM_ID in
@@ -175,26 +175,24 @@ class case10(unittest.TestCase):
         driver.find_element_by_id("ctl00_cph_wpFilter_btnSetFilter").click()
 
 
-    #@unittest.skip('Временно пропущен')
+    #@unittest.skip('Не работает, задание 51185')
     def test_1(self):
-        """Удаляет из АСП заявления на человека, загружает и записывает одно заявление с ПГУ"""
-        fio = ('Субсидия', 'Оплата', 'Жилья')
+        """Не работает, задание 51185. Удаляет из АСП заявления на человека, загружает и записывает одно заявление с ПГУ"""
+
         # удаление
-        self.delASP()
+        self.delASP(fio)
         # перед загрузкой отмечаем все для района как загруженное
         print('перед загрузкой отмечаем все для района как загруженное')
-        self.curASP.execute("""
-    -- номер района
-    declare @id int = 159
+        self.curTI.execute("""
     -- отметить все заявки района как загруженными
     update EService_Request set exportDate = GETDATE(), exportFile='WEB_SERVICE'
-    where EService_Users_id = @id and exportDate is NULL and exportFile is NULL
+    where EService_Users_id=159 and exportDate is NULL and exportFile is NULL
     -- отметить все СМЭВ ответы как загруженные
-    update smev_response_header set Date_Export=GETDATE(), EService_Users_id=@id from smev_response_header a
+    update smev_response_header set Date_Export=GETDATE(), EService_Users_id=159 from smev_response_header a
     inner join SMEV_REQUEST b on b.ID=a.SMEV_REQUEST_ID
-    where a.Date_Export is null and b.EService_Users_id=@id
+    where a.Date_Export is null and b.EService_Users_id=159
         """)
-        self.conASP.commit()
+        self.conTI.commit()
 
         # удаляю ответы на заявки человека на ТИ
         print('удаляю ответы на заявки человека на ТИ')
@@ -209,16 +207,15 @@ class case10(unittest.TestCase):
         cur.execute("delete EService_Response where eService_Request_id in (%s)" % es_id)
         self.conTI.commit()
         print('отмечаю заявления человека к загрузке на ТИ')
-        # отмечаю заявление test_case_10_1 к загрузке на ТИ
+        # отмечаю заявление test_case_11_1 к загрузке на ТИ
         cur.execute("""-- номер района
     declare @id int = 159
     -- отметить все заявки района как не загруженную
     update EService_Request set exportDate=NULL, exportFile=NULL where EService_Users_id = @id and
-    lastName=? and firstName=? and middleName=? and requestId='test_case_10_1'""", fio)
-        # отсоединяюсь от ТИ
+    lastName=? and firstName=? and middleName=? and requestId='test_case_11_1'""", fio)
         self.conTI.commit()
 
-        # загружаю заявление test_case_10_1
+        # загружаю заявление test_case_11_1
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # пробуем загрузить заявление
@@ -243,6 +240,13 @@ class case10(unittest.TestCase):
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # связывание с ПКУ
         driver.find_element_by_id("ctl00_cph_wpOper_lbtnBindingPeopleAndPku").click()
+        # Проверить, должно быть найдено точно = 1, найдено не точно = 1
+        self.assertEqual(driver.find_element_by_id("ctl00_cph_wpOper_lbCountFoundVeryOk").text, '1',
+                         "Ожидали, что найдено точно = 1")
+
+        self.assertEqual(driver.find_element_by_id("ctl00_cph_wpOper_lbCountFoundOk").text, '1',
+                         "Ожидали, что найдено не точно = 1")
+        # Нажимает связать все
         driver.find_element_by_id("ctl00_cph_wpOper_lbtnBind").click()
         driver.find_element_by_css_selector("#ctl00_cph_TopStr1_lbtnTopStr_SaveExit > img").click()
         # устанавливаю фильтр по ФИО
@@ -268,7 +272,7 @@ class case10(unittest.TestCase):
         driver.find_element_by_id('ctl00_cph_rbl_1_SettZayv1').click()
         # Установить радиогруппу Со статусом 'назначено' в Зарегистрировать новые документы к заявлению
         driver.find_element_by_id('ctl00_cph_rbl_2_SettZayv2').click()
-        arh_name = 'fig/10/test_галочка0.png'
+        arh_name = 'fig/11/test_галочка_1.png'
         self.driver.save_screenshot(arh_name)
         # Сформировани список
         driver.find_element_by_id("ctl00_cph_lbtnCreateSpisok").click()
@@ -301,17 +305,16 @@ class case10(unittest.TestCase):
     #@unittest.skip('Временно пропущен')
     def test_2(self):
         """Загружает записывает второе заявления с ПГУ"""
-        fio = ('Субсидия', 'Оплата', 'Жилья')
-        # отмечаю заявление test_case_10_2 к загрузке на ТИ
+        # отмечаю заявление test_case_11_2 к загрузке на ТИ
         self.curTI.execute("""-- номер района
     declare @id int = 159
     -- отметить все заявки района как не загруженную
     update EService_Request set exportDate=NULL, exportFile=NULL where EService_Users_id = @id and
-    lastName=? and firstName=? and middleName=? and requestId='test_case_10_2'""", fio)
+    lastName=? and firstName=? and middleName=? and requestId='test_case_11_2'""", fio)
         # отсоединяюсь от ТИ
         self.conTI.commit()
 
-        # загружаю заявление test_case_10_2
+        # загружаю заявление test_case_11_2
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # пробуем загрузить заявление
@@ -391,103 +394,116 @@ class case10(unittest.TestCase):
         driver.find_element_by_id("ctl00_cph_lbtnGoBack__4").click()
 
 
-    #@unittest.skip('Не работает. Задание 51023')
+    #@unittest.skip('Не работает, задание 51186')
     def test_3(self):
-        """Не работает. Задание 51023. В двух принятых заявлениях визуально проверяет обязательные поля: вкладка госуслуги, контроль госуслуги, номера заявлений"""
-        fio = ('Субсидия', 'Оплата', 'Жилья')
+        """е работает, задание 51186. В двух принятых заявлениях визуально проверяет обязательные поля: вкладка госуслуги, контроль госуслуги, номера заявлений"""
         # захожу в госуслуги
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # устанавливаю фильтр по ФИО
         self.madeFiltr(fio)
         # захожу в обе заявке по очереди
-        zaiv = {'test_case_10_1':
+        zaiv = {'test_case_11_1':
                     {'id': 'ctl00_cph_grdMain_ctl03_lbtnGotoZayv',
-                     'numer': 'С /1',
-                     'begin': 'Январь 2016 г.',
-                     'end': 'Июнь 2016 г.'},
-                'test_case_10_2':
+                     'numer': '1',
+                     'get': '05.01.2016'
+                     },
+                'test_case_11_2':
                     {'id': 'ctl00_cph_grdMain_ctl02_lbtnGotoZayv',
-                     'numer': 'С /2',
-                     'begin': 'Январь 2016 г.',
-                     'end': 'Июнь 2016 г.'}
+                     'numer': '2',
+                     'get': '05.02.2016'
+                     }
                 }
         for key in zaiv.keys():
             z = zaiv[key]
             # Войти в завку
             driver.find_element_by_id(z['id']).click()
-            # Проверить период назначения с
-            begin = driver.find_element_by_id("igtxtctl00_cph_NaznMesGod1").get_attribute('value')
-            self.assertEqual(begin, z['begin'], 'Для заявления %s ожидается период назначения с=%s' % (key, z['begin']))
-            # Проверить период назначения по
-            end = driver.find_element_by_id("igtxtctl00_cph_NaznMesGod2").get_attribute('value')
-            self.assertEqual(end, z['end'], 'Для заявления %s ожидается период назначения по=%s' % (key, z['end']))
+            # Проверить на обложке заявления
+            # Проверить Дата подачи заявления
+            get = driver.find_element_by_id("ctl00_cph_tbDATRZ1").text
+            self.assertEqual(get, z['get'], 'Для заявления %s ожидается период назначения с=%s' % (key, z['get']))
             # Проверить номер заявления в АСП
-            numer = driver.find_element_by_id("ctl00_cph_lblFormatNzayv").text
-            if numer.find(z['numer']) == -1:
-                self.fail('Номер заявления в АСП=%s для заявки ПГУ %s не содержит образец %s' % (numer, key, z['numer']))
+            numer = driver.find_element_by_id("igtxtctl00_cph_tbNzayv").get_attribute('value')
+            self.assertEqual(numer, z['numer'], 'Номер заявления в АСП=%s для заявки ПГУ %s не равен образецу %s' % (numer, key, z['numer']))
             # Проверить наличие вкладки госуслуги
-            self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
-                                 'Для заявления %s нет вкладки Госуслуги' % key)
+            self.assertTrue(self.is_element_present(By.ID, 'ctl00cphpnlGosUsl_header'),
+                            'Для заявления %s нет вкладки Госуслуги' % key)
             # Проверить, что есть контроль госуслуги
-            self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
+            id = "td.StandartHeader > span"
+            self.assertTrue(self.is_element_present(By.CSS_SELECTOR, id),
                                  'Для заявления %s нет контрола Госуслуги' % key)
             # Проверить, что контрол не пустой
-            s = driver.find_element_by_css_selector('#ctl00_cph_TopStr_GosUslTop').text
+            s = driver.find_element_by_css_selector(id).text
             if (s.find('Подано через портал ГосУслуг') == -1):
                 self.fail('Для заявления %s в контроле должно быть написано Подано через портал ГосУслуг' % key)
-            # Выход
-            driver.find_element_by_id("ctl00_cph_TopStr_lbtnTopStr_Exit").click()
+
+            # Проверка внутри заявления
+            # Зайти в заявление
+            driver.find_element_by_id("ctl00_cph_lbtnDokum").click()
+
+            # Проверить наличие вкладки госуслуги
+            self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
+                            'Для заявления %s нет вкладки Госуслуги' % key)
+            # Проверить, что есть контроль госуслуги
+            id = "#ctl00_cph_TopStr_GosUslTop"
+            self.assertTrue(self.is_element_present(By.CSS_SELECTOR, id),
+                            'Для заявления %s нет контрола Госуслуги' % key)
+            # Проверить, что контрол не пустой
+            s = driver.find_element_by_css_selector(id).text
+            if (s.find('Подано через портал ГосУслуг') == -1):
+                self.fail('Для заявления %s в контроле должно быть написано Подано через портал ГосУслуг' % key)
+            # выйти в список заявлений
+            driver.find_element_by_xpath("//a[@title='Выход']/img").click()
 
 
     #@unittest.skip('Временно пропущен')
     def test_4(self):
         """В двух принятых заявлениях выставляет отказ"""
-        fio = ('Субсидия', 'Оплата', 'Жилья')
         # захожу в госуслуги
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # устанавливаю фильтр по ФИО
         self.madeFiltr(fio)
         # захожу в обе заявке по очереди
-        zaiv = {'test_case_10_1':
+        zaiv = {'test_case_12_1':
                     {'id': 'ctl00_cph_grdMain_ctl03_lbtnGotoZayv',
-                     'numer': 'С /1',
-                     'begin': 'Январь 2016 г.',
-                     'end': 'Июнь 2016 г.'},
-                'test_case_10_2':
+                     'numer': '1',
+                     'get': '05.01.2016'
+                     },
+                'test_case_12_2':
                     {'id': 'ctl00_cph_grdMain_ctl02_lbtnGotoZayv',
-                     'numer': 'С /2',
-                     'begin': 'Январь 2016 г.',
-                     'end': 'Июнь 2016 г.'}
+                     'numer': '2',
+                     'get': '05.02.2016'
+                     }
                 }
         for key in zaiv.keys():
             z = zaiv[key]
             # Войти в завку
             driver.find_element_by_id(z['id']).click()
-            # Нажать на отказ
-            driver.find_element_by_css_selector("#ctl00_cph_TopStr_lbtnTopStr_Otkaz > img").click()
-            # Выбрать причину
-            driver.find_element_by_id("ctl00_cph_Chk100").click()
-            driver.find_element_by_id("ctl00_cph_Imagebutton_Exit").click()
-            # Отказать и выйти
-            driver.find_element_by_css_selector("#ctl00_cph_TopStr_lbtnTopStr_SaveExit > img").click()
+            # Войти по внутрь
+            driver.find_element_by_id("ctl00_cph_lbtnDokum").click()
+            # Нажать проверить право
+            driver.find_element_by_id("ctl00_cph_lbtnCheckPravo").click()
+            # Нажать подтвердить отказ
+            driver.find_element_by_id("ctl00_cph_lbnDoIt").click()
+            # Выйти с сохранением
+            driver.find_element_by_xpath("//a[@title='Выход с сохранением']/img").click()
 
 
-    #@unittest.skip('Временно пропущен')
+    #@unittest.skip('Не работает, задание 51206')
     def test_5(self):
-        """Загружает и записывает 3-е и 4-е заявления с ПГУ"""
-        fio = ('Субсидия', 'Оплата', 'Жилья')
-        # отмечаю заявление test_case_10_3, test_case_10_4 к загрузке на ТИ
+        """Не работает, задание 51206. Загружает записывает 3-е заявления с ПГУ. Оно должно будет сесть как еще одно заявление для с неопределенным
+        статусом, т.к. два предыдущих были сделаны с отказом."""
+        # отмечаю заявление test_case_11_3 к загрузке на ТИ
         self.curTI.execute("""-- номер района
     declare @id int = 159
     -- отметить все заявки района как не загруженную
     update EService_Request set exportDate=NULL, exportFile=NULL where EService_Users_id = @id and
-    lastName=? and firstName=? and middleName=? and requestId in ('test_case_10_3', 'test_case_10_4')""", fio)
+    lastName=? and firstName=? and middleName=? and requestId='test_case_11_4'""", fio)
         # отсоединяюсь от ТИ
         self.conTI.commit()
 
-        # загружаю заявление test_case_10_2
+        # загружаю заявление test_case_11_2
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # пробуем загрузить заявление
@@ -505,8 +521,8 @@ class case10(unittest.TestCase):
             zaiv = driver.find_element_by_xpath("//span[@id='ctl00_cph_L_Res']/strong[6]").text
         except:
             zaiv = '0'
-        # проверить, что загружено 2 заявления
-        self.assertEqual('2', zaiv, 'Ожидали загрузку 2-х заявлений')
+        # проверить, что загружено 1 заявление
+        self.assertEqual('1', zaiv, 'Ожидали загрузку 1-го заявления')
         # запись заявок
         # захожу в госуслуги
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
@@ -533,11 +549,11 @@ class case10(unittest.TestCase):
         else:
             # иначе выбираю
             checkBox.click()
-        # Установить радиогруппу Со статусом 'отказано' в Зарегистрировать новые документы
+        # Установить радиогруппу Со статусом 'отказано' в Зарегистрировать новые документы заявление
         driver.find_element_by_id('ctl00_cph_rbl_2_SettZayv1').click()
         # Установить радиогруппу Со статусом 'назначено' в Зарегистрировать новые документы к заявлению
         driver.find_element_by_id('ctl00_cph_rbl_2_SettZayv2').click()
-        arh_name = 'fig/10/test_галочка_2.png'
+        arh_name = 'fig/11/test_галочка_2.png'
         self.driver.save_screenshot(arh_name)
         # Сформировани список
         driver.find_element_by_id("ctl00_cph_lbtnCreateSpisok").click()
@@ -550,6 +566,12 @@ class case10(unittest.TestCase):
             time.sleep(1)
         else:
             self.fail("Не удалось дождаться окна Массовая рег. заявок")
+        # Проверить, что заявок для регистрации 1
+        self.assertEqual(driver.find_element_by_id('ctl00_cph_pnlVidSpiska_Lbn1').text, '1',
+                         'Ожидается заявок для регистрации 1')
+        # Проверить, что заявок для назначения 1
+        self.assertEqual(driver.find_element_by_id('ctl00_cph_pnlVidSpiska_Lbn2').text, '1',
+                         'Ожидается заявок для назначения 1')
         # вот тут надо нажать на 1, в списке
         driver.find_element_by_id("ctl00_cph_pnlVidSpiska_Lbn1").click()
         driver.find_element_by_css_selector("#ctl00_cph_pnl_ViewInfo_lbtnSave > img").click()
@@ -565,105 +587,6 @@ class case10(unittest.TestCase):
             self.fail("Не удалось дождаться записи заявок")
         # выйти из записи
         driver.find_element_by_id("ctl00_cph_lbtnGoBack__4").click()
-
-
-    #@unittest.skip('Не работает. Задание 51021')
-    def test_6(self):
-        """Не работает. Задание 51021. Заходит в ПКУ человека и визуально проверяет, что у него 2 заявления АСП
-        (т.к. 2 последних должны быть записаны как изменения).
-        Проверяет номера заявлений, даты: подачи, с, по."""
-        fio = ('Субсидия', 'Оплата', 'Жилья')
-        driver = self.driver
-        # проверить, что у человека показана только одна заявка
-        # зайти  в поиск и найти ПКУ человека
-        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
-        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
-        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
-        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
-        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
-        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
-        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
-        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
-        # зайти в ПКУ человека
-        driver.find_element_by_id("15493").click()
-        # найти таблицу с заявками
-        table = driver.find_element_by_id('ctl00_cph_DGNeedsOnMain')
-        # найти все строки
-        st = table.find_elements_by_tag_name('tr')
-        count = 0
-        zaiv = list()
-        for line in st:
-            if line.text.find('Заявки на получение субсидии на оплату жилья и ЖКУ') > -1:
-                count += 1
-                zaiv.append(line.text)
-        self.assertEqual(count, 2, 'Нашли %s заявок в ПКУ. Ожидаем 2' % count)
-        # Разберем строки с заявками на части - номер заявления, дата подачи, с, дата по
-        word = list()
-        for line in zaiv:
-            z = line.replace('\n\n', '')
-            z = z.replace('Заявки на получение субсидии на оплату жилья и ЖКУ ', '')
-            word.append(z.split())
-        print('Список данных найденных заявлений:', word)
-        # образцы
-        zaiv = {'test_case_10_1':
-                    {'start': '01.01.2016',
-                    'begin': '01.01.2016',
-                    'end': '30.06.2016',
-                    'numer': 'С/1'},
-                'test_case_10_2':
-                    {'start': '10.01.2016',
-                    'numer': 'С/2',
-                    'begin': '01.01.2016',
-                    'end': '30.06.2016'}
-            }
-        # проверяю заявление test_case_10_1, он должно прийти первым
-        err = ''
-        key = 'test_case_10_1'
-        good = zaiv[key]
-        bad = word[1]
-        res = checkZaiv(good, bad)
-        if res:
-            err = '\nПри проверке отображения заявления %s в ПКУ найдены ошибки\n==============================\n' % key
-            err += res
-        # проверяю заявление test_case_10_2, он должно прийти вторым
-        key = 'test_case_10_2'
-        good = zaiv[key]
-        bad = word[0]
-        res = checkZaiv(good, bad)
-        if res:
-            err += '\nПри проверке отображения заявления %s в ПКУ найдены ошибки\n==============================\n' % key
-            err += res
-        if err:
-            self.fail(err)
-
-
-    def test_7(self):
-        """Проверяет как записались в БД все 4-ре заявления ПГУ"""
-        # считывает из БД f6 и f6izm по каждому заявлению test_case_10_1, test_case_10_2, test_case_10_3, test_case_10_4
-        zaiv = dict()
-        res = self.curASP.execute("select f6_id, f6izm_id from EService_Request where requestId='test_case_10_1'").fetchone()
-        zaiv['test_case_10_1'] = {'f6': res[0], 'f6izm': res[1]}
-        res = self.curASP.execute("select f6_id, f6izm_id from EService_Request where requestId='test_case_10_2'").fetchone()
-        zaiv['test_case_10_2'] = {'f6': res[0], 'f6izm': res[1]}
-        res = self.curASP.execute("select f6_id, f6izm_id from EService_Request where requestId='test_case_10_3'").fetchone()
-        zaiv['test_case_10_3'] = {'f6': res[0], 'f6izm': res[1]}
-        res = self.curASP.execute("select f6_id, f6izm_id from EService_Request where requestId='test_case_10_4'").fetchone()
-        zaiv['test_case_10_4'] = {'f6': res[0], 'f6izm': res[1]}
-        err = ''
-        # Проверить, что все заявления имеют f6 и f6izm
-        for key in  ('test_case_10_1', 'test_case_10_2', 'test_case_10_3', 'test_case_10_4'):
-            if not zaiv[key]['f6']:
-                err += 'В заявлении %s f6 пустой. \n' % key
-        # Проверить, что f6 для test_case_10_1 и  test_case_10_2 не равны
-        if zaiv['test_case_10_1']['f6'] == zaiv['test_case_10_2']['f6']:
-            err += 'Заявления test_case_10_1 и  test_case_10_2 должны иметь уникальные f6.\n'
-        # Проверить, что f6 для test_case_10_2 и test_case_10_3 и test_case_10_4 равны
-        if not (zaiv['test_case_10_2']['f6'] == zaiv['test_case_10_3']['f6'] and
-                        zaiv['test_case_10_2']['f6'] == zaiv['test_case_10_4']['f6']):
-            err += 'Заявления test_case_10_2, test_case_10_3, test_case_10_4 должны иметь одинаковые f6.\n'
-        if err:
-            self.fail(err)
-
 
 
     def is_element_present(self, how, what):
@@ -694,15 +617,11 @@ class case10(unittest.TestCase):
 
     def tearDown(self):
         """Выполняется после каждого теста. Сохраняет скриншот результата, закрывает веб-драйвер и соединения с БД"""
-        arh_name = 'fig/10/%s.png' % self.id()
+        arh_name = 'fig/11/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
-        self.testDict['time'] = int(time.time() - self.timeBegin)
-        print(self.testDict)
-        print('Выполнил тест: %s за %s секунд.' % (self.testDict['name'], self.testDict['time']))
-        # пробую записать в БД
-
+        print('Выполнил тест: %s за %s секунд.' % (self.id(), int(time.time() - self.timeBegin)))
 
 
 if __name__ == "__main__":

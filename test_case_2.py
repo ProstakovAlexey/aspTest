@@ -569,7 +569,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
 
     def tearDown(self):
-        arh_name = 'fig/1/%s.png' % self.id()
+        arh_name = 'fig/2/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)

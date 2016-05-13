@@ -644,7 +644,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
             self.assertIsNone(i[1], 'F6_IZM должен быть пустой')
 
 
-    def test_1a_check3zaiv(self):
+    def test_a10_check3zaiv(self):
         """По всем 3-м принятым заявления проверить, чтобы у них были: уникальные номера, вкладка госуслуги"""
         # словарь ID, по которым переходить
         id = {'122675408': 'ctl00_cph_grdMain_ctl04_lbtnGotoZayv',
@@ -702,7 +702,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
 
     def tearDown(self):
-        arh_name = 'fig/1/%s.png' % self.id()
+        arh_name = 'fig/6/%s.png' % self.id()
         self.driver.save_screenshot(arh_name)
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
