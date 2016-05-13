@@ -12,6 +12,7 @@ import os
 import config
 import datetime
 import time
+import forSeleniumTests
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -465,6 +466,12 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         # проверить, что есть вкладка госуслуги
         self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
             'Для обращения от 11.04.2016 нет вкладки Госуслуги')
+        # перейти на владку госуслуги
+        driver.find_element_by_id('ctl00_cph_lbtab8').click()
+        # проверить, что внутри контрола есть все поля
+        err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_guResp1')
+        if err:
+            self.fail('При проверке контрола госуслуги для обращени 11.04.2016 найдены ошибки:\n%s' % err)
         # проверить, что есть контроль госуслуги
         self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
             'Для обращения от 11.04.2016 нет контрола Госуслуги')
@@ -472,17 +479,23 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         if (s.find('Подано через портал ГосУслуг')==-1):
             self.fail('Для обращения от 11.04.2016 в контроле госуслуг должно быть написано Подано через портал ....')
 
-
         # проверить обращение от 29.03.2016
         Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("29.03.2016")
         driver.find_element_by_id("ctl00_cph_ListData").click()
         # проверить, что есть вкладка госуслуги
         self.assertTrue(self.is_element_present(By.XPATH, u"//a[contains(text(),'ГосУслуги')]"),
                                                 'Для обращения от 29.03.2016 нет вкладки Госуслуги')
+        # перейти на владку госуслуги
+        driver.find_element_by_id('ctl00_cph_lbtab8').click()
+        # проверить, что внутри контрола есть все поля
+        err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_guResp1')
+        if err:
+            self.fail('При проверке контрола госуслуги для обращени 29.03.2016 найдены ошибки:\n%s' % err)
         # проверить, что есть контроль госуслуги
         self.assertTrue(self.is_element_present(By.CSS_SELECTOR, "#ctl00_cph_TopStr_GosUslTop"),
                         'Для обращения от 29.03.2016 нет контрола Госуслуги')
         s = driver.find_element_by_css_selector('#ctl00_cph_TopStr_GosUslTop').text
+
         if (s.find('Подано через портал ГосУслуг') == -1):
             self.fail('Для обращения от 29.03.2016 в контроле госуслуг должно быть написано Подано через портал ....')
 
