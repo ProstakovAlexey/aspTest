@@ -446,7 +446,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
                 err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_pnlGosUsl_guResp1')
                 if err:
                     self.fail('При проверке контрола госуслуги на обложке заявления %s найдены ошибки:\n%s' % (key, err))
-            # проверить внутри заявления. Зайти во внутрь заявления
+            # проверить внутри заявления. Зайти во внутрь заявления ctl00_cph_tab__ctl12_guResp1_lbtnNewResponse
             driver.find_element_by_id('ctl00_cph_lbtnDokum').click()
             # проверить, что есть вкладка госуслуги
             try:
@@ -457,7 +457,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
                 # зайти во вкладку госуслуги
                 driver.find_element_by_id('ctl00_cph_tabtd12').click()
                 # проверить, что внутри контрола есть все поля
-                err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_uwtTabs__ctl12_guResp1')
+                err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_tab__ctl12_guResp1')
                 if err:
                     self.fail('При проверке контрола госуслуги внутри заявления %s найдены ошибки:\n%s' % (key, err))
             # перейти на вкладку дети

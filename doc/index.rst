@@ -15,13 +15,14 @@
 .. toctree::
    :maxdepth: 1
 
+   ts_6.rst 
+   ts_11.rst 
+   ts_8.rst 
+   ts_7.rst 
+   ts_10.rst 
    ts_1.rst 
    ts_2.rst 
-   ts_6.rst 
-   ts_7.rst 
-   ts_8.rst 
-   ts_10.rst 
-   ts_11.rst 
+   ts_12.rst 
 
 Работа веб-сервисов
 -------------------

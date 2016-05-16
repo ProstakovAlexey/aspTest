@@ -638,7 +638,7 @@ class case10(unittest.TestCase):
 
 
     def test_7(self):
-        """Проверяет как записались в БД все 4-ре заявления ПГУ"""
+        """Не работает, задание №51315. Проверяет как записались в БД все 4-ре заявления ПГУ"""
         # считывает из БД f6 и f6izm по каждому заявлению test_case_10_1, test_case_10_2, test_case_10_3, test_case_10_4
         zaiv = dict()
         res = self.curASP.execute("select f6_id, f6izm_id from EService_Request where requestId='test_case_10_1'").fetchone()

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'alexey'
+import time
 
 def checkControl(driver, pre):
     """ Проверяет наличие в контроле Госуслуги обязательных элементов:
@@ -19,7 +20,7 @@ def checkControl(driver, pre):
         msg += 'В контроле не нашел кнопки новый ответ.\n'
     else:
         # Активна или нет?
-        newResponse = getDisabled(driver, id)
+        newResponse = driver.find_element_by_id(id).get_attribute('disabled')
 
     # Проверю наличие  выпадающего списка со статусом
     id = pre + '_ddlStatus'
@@ -27,7 +28,7 @@ def checkControl(driver, pre):
         msg += 'В контроле не нашел выпадающего списка с решением.\n'
     else:
         # Активна или нет?
-        status = getDisabled(driver, id)
+        status = driver.find_element_by_id(id).get_attribute('disabled')
 
     # Проверю наличие  поля для комментария
     id = pre + '_tbGosUsl_Coment'
@@ -35,7 +36,7 @@ def checkControl(driver, pre):
         msg += 'В контроле не нашел поля для комментария.\n'
     else:
         # Активна или нет?
-        comment = getDisabled(driver, id)
+        comment = driver.find_element_by_id(id).get_attribute('disabled')
 
     # Проверю наличие  кнопки для прикрепления файла
     id = pre + '_InpScDoc_lbtnAddScanDoc'
@@ -43,7 +44,7 @@ def checkControl(driver, pre):
         msg += 'В контроле не нашел кнопки для файла.\n'
     else:
         # Активна или нет?
-        file = getDisabled(driver, id)
+        file = driver.find_element_by_id(id).get_attribute('disabled')
 
     # Если до этого все поля найдены, провожу их проверку на активность
     if msg:
@@ -51,23 +52,59 @@ def checkControl(driver, pre):
     else:
         if newResponse:
             # Кнопка новый ответ не активна, значит это не выгруженный ответ и в нем можно все редактировать
-            if not status:
+            if status:
                 msg += 'В не выгруженном ответа нельзя редактировать статус.\n'
-            if not comment:
+            if comment:
                 msg += 'В не выгруженном ответа нельзя редактировать комментарий.\n'
-            if not file:
+            if file:
                 msg += 'В не выгруженном ответа нельзя добавить файл.\n'
                 title = driver.find_element_by_id(id).get_attribute('title')
                 if title != 'Для добавления документа сначала создайте новый ответ.':
                     msg += "В title кнопки прикладывания ответа написано %s, должно быть выполнено задания №51302\n" % title
         else:
             # Кнопка новый ответ активна
-            if status:
+            if not status:
                 msg += 'Новый ответ еще не создан, а редактировать статус можно.\n'
-            if comment:
+            if not comment:
                 msg += 'Новый ответ еще не создан, а редактировать комментарий можно.\n'
-            if file:
+            if not file:
                 msg += 'Новый ответ еще не создан, а приложить файл можно.\n'
+    return msg
+
+
+def writeNewResponse(driver, pre):
+    """ Пытается ввести новоый ответ.
+    1) кнопки новый ответ - _lbtnNewResponse
+    2) выпадающего списка статус _guResp1_ddlStatus
+    3) поля для ввода комментария _tbGosUsl_Coment
+    4) места прикрепления файла _lbtnAddScanDoc
+    :param driver: веб-драйвер
+    :param pre: префикс для контрола
+    :return: значение None или сообщение об ошибке
+    """
+    msg = ''
+    # проверить, что заявление готово к вводу нового ответа
+    # Проверю наличие кнопки новый ответ заявителю
+    id = pre + '_lbtnNewResponse'
+    if findElementById(driver, id):
+        msg += 'В контроле не нашел кнопки новый ответ.\n'
+    else:
+        # Активна или нет?
+        if driver.find_element_by_id(id).get_attribute('disabled'):
+            msg += 'Кнопка новый ответ не активна.\n'
+
+    # если не было ошибок, то продолжим. Пробую дать новый ответ.
+    if not msg:
+        # нажать новый ответ
+        driver.find_element_by_id(id).click()
+        # после этого поле ввода текста должно стать активно
+        id = pre + '_tbGosUsl_Coment'
+        if findElementById(driver, id):
+            msg += 'В контроле поле ввода нового ответа исчезло после нажатия на ввести новый ответ.\n'
+        else:
+            # Активна или нет?
+            if driver.find_element_by_id(id).get_attribute('disabled'):
+                msg += 'В контроле поле ввода нового ответа осталось не активной после нажатия на ввести новый ответ.\n'
     return msg
 
 
@@ -94,10 +131,7 @@ def getDisabled(driver, id):
     :param id: ИД
     :return: 1 если disabled, 0 - если enabled
     """
-    result = 0
     atr = driver.find_element_by_id(id).get_attribute('disabled')
-    if atr == 'disabled':
-        result = 1
-    return result
+    return atr
 
 

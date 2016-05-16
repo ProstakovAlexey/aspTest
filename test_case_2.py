@@ -65,6 +65,8 @@ class case2(unittest.TestCase):
             (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F6LGKYSL WHERE f6izm_id in (select id from F6IZM where F6_ID in
             (select id from F6 where F2_ID in (%s)))""" % f2_id)
+            cur.execute("""DELETE F_STAGERESULT WHERE f6izm_id in (select id from F6IZM where F6_ID in
+                (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F6IZM where F6_ID in (select id from F6 where F2_ID in (%s))""" % f2_id)
             cur.execute("delete EService_Request where F2_ID in (%s)" % f2_id)
             cur.execute("""delete F6 where F2_ID in (%s)""" % f2_id)

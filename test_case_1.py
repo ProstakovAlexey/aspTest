@@ -1226,5 +1226,4 @@ and date_Response is not NULL""", ("Данилов", "Борис", "Петров
 if __name__ == '__main__':
     # Выполняется если файл запускается как программа
     unittest.main()
-
     exit(0)
