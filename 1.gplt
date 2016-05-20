@@ -1,0 +1,32 @@
+# Конфигурационный файл для gnuplot
+# Строит график для всех моих наборы тестов
+set terminal  png size 400,250 font 'Verdana, 7'
+set output "doc/_static/stat_1.png"
+set title "Разработка наборов тестов"
+set ylabel "Кол-во (шт.)"
+set xlabel "Дата"
+set xdata time
+set timefmt "%Y-%m-%d"
+set format x "%d.%m\n%Y"
+set grid xtics ytics
+plot 'tmp' u 1:2 ti 'Наборы тестов' w li lw 2 lt rgb "green"
+
+set output "doc/_static/stat_2.png"
+set title "Заданий проверяемых тестами"
+set ylabel "Кол-во (шт.)"
+set xlabel "Дата"
+set xdata time
+set timefmt "%Y-%m-%d"
+set format x "%d.%m\n%Y"
+set grid xtics ytics
+plot 'tmp' u 1:3 ti 'Задания' w li lw 2 lt rgb "blue"
+
+set output "doc/_static/stat_3.png"
+set title "Не исправленных ошибок найденных тестами"
+set ylabel "Кол-во (шт.)"
+set xlabel "Дата"
+set xdata time
+set timefmt "%Y-%m-%d"
+set format x "%d.%m\n%Y"
+set grid xtics ytics
+plot 'tmp' u 1:4 ti 'Ошибки' w li lw 2 lt rgb "red"
