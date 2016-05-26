@@ -9,6 +9,7 @@ import unittest, time, datetime, re
 import pypyodbc
 import os
 import config
+import forSeleniumTests
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -63,6 +64,8 @@ class case2(unittest.TestCase):
             (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F6LDOKUM WHERE f6izm_id in (select id from F6IZM where F6_ID in
             (select id from F6 where F2_ID in (%s)))""" % f2_id)
+            cur.execute("""DELETE F6DOKUMV WHERE f6izm_id in (select id from F6IZM where F6_ID in
+                (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F6LGKYSL WHERE f6izm_id in (select id from F6IZM where F6_ID in
             (select id from F6 where F2_ID in (%s)))""" % f2_id)
             cur.execute("""DELETE F_STAGERESULT WHERE f6izm_id in (select id from F6IZM where F6_ID in
@@ -542,6 +545,263 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         con.close()
         # выполняется проверка, кол-во файлов otvet.txt по заявлению  265063t3  должно быть 1
         self.assertEqual(c, 1, 'Кол-во файлов otvet.txt по заявлению 265063t3  должно быть 1, получилось %s' % c)
+
+
+    def test_8(self):
+        """Для заявления Ч2 выполнить назначение (для документа, принятого с ПГУ). Сделан Рыбкиой О., переделан мной для python"""
+        fio = ('Фролова', 'Оксана', 'Вячеславовна')
+        driver = self.driver
+        driver.get(self.base_url + "Common/Main.aspx")
+        # Войти в поиск
+        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
+        # Заполнить ФИО
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
+        # Нажать поиск
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
+        # Перейти в ПКУ
+        driver.find_element_by_id("15479").click()
+        # Тут вставить команду перейти в заявку Ч2
+        driver.find_element_by_xpath("//table[@id='ctl00_cph_DGNeedsOnMain']/tbody/tr/td/input[@id[contains(.,'EditZayv.aspx?k_gsp=15')]]").click()
+        # Войти в заявку
+        driver.find_element_by_css_selector("#ctl00_cph_lbtnDokum > img").click()
+        # Перейти на вкладку Выплатная информация
+        driver.find_element_by_id("ctl00_cph_uwtTabstd2").click()
+        # Вход в справочник способ выплаты
+        driver.find_element_by_css_selector("#ctl00_cph_uwtTabs__ctl2_PayInfo1_btnDirectionPay > img").click()
+        # Выбрать банк
+        driver.find_element_by_id("ctl00_cph_RadioButtonList1_4").click()
+        # Выйти
+        driver.find_element_by_id("ctl00_cph_Imagebutton_Exit2").click()
+        # Проверить право
+        driver.find_element_by_id("ctl00_cph_btnCalc").click()
+        # Установить сумму
+        driver.find_element_by_id('igtxtctl00_cph_uwtTabs__ctl5_wneRight2').clear()
+        driver.find_element_by_id('igtxtctl00_cph_uwtTabs__ctl5_wneRight2').send_keys('10200')
+        # Провести назначение
+        driver.find_element_by_id("ctl00_cph_uwtTabs__ctl5_btnRightToNazn").click()
+        # Установить дату с
+        driver.find_element_by_id('x:1836846734.0:mkr:3').clear()
+        driver.find_element_by_id('x:1836846734.0:mkr:3').send_keys('01.01.2016')
+        # Установить дату по
+        driver.find_element_by_id('x:643892887.0:mkr:3').clear()
+        driver.find_element_by_id('x:643892887.0:mkr:3').send_keys('01.01.2016')
+        # Подтвердить назначение (нажать зеленую галочку)
+        driver.find_element_by_id('ctl00_cph_uwtTabs__ctl6_lbnDoIt').click()
+        # Нажать перевести на выплату
+        driver.find_element_by_id('ctl00_cph_uwtTabs__ctl7_lbtnSetToPay').click()
+        # Сохранить и выйти
+        driver.find_element_by_id('ctl00_cph_TopStr1_lbtnTopStr_SaveExit').click()
+
+
+    def test_9(self):
+        """Не работает, задание 51586. Проверяет ситуацию, когда хотели добавить новый документ, но передумали. Удалили документ, вышли без
+        сохранения. Была ошибка, при которой статус заявления АСП менялся."""
+        fio = ('Фролова', 'Оксана', 'Вячеславовна')
+        driver = self.driver
+        driver.get(self.base_url + "Common/Main.aspx")
+        # Войти в поиск
+        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
+        # Заполнить ФИО
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
+        # Нажать поиск
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
+        # Перейти в ПКУ
+        driver.find_element_by_id("15479").click()
+        # Настроить фильтр, чтобы были видны все заявки
+        driver.find_element_by_id("ctl00_cph_rblNeedsOnMain_filter_2").click()
+        # Перейти в заявку Ч2
+        driver.find_element_by_xpath(
+            "//table[@id='ctl00_cph_DGNeedsOnMain']/tbody/tr/td/input[@id[contains(.,'EditZayv.aspx?k_gsp=15')]]").click()
+        # Войти в заявку
+        driver.find_element_by_css_selector("#ctl00_cph_lbtnDokum > img").click()
+        # Добавить новый документ
+        driver.find_element_by_id("ctl00_cph_lbtnAddData").click()
+        # Ввести дату нового документа
+        driver.find_element_by_id('x:1710152298.0:mkr:3').clear()
+        driver.find_element_by_id('x:1710152298.0:mkr:3').send_keys('17.05.2016')
+        # Подтвердить ввод
+        driver.find_element_by_id("ctl00_cph_lbtnOkData").click()
+        # Удалить документ
+        driver.find_element_by_id('ctl00_cph_lbtnDelData').click()
+        # Подтвердить удаление
+        print(self.close_alert_and_get_its_text())
+        # Выйти без сохранения
+        driver.find_element_by_id('ctl00_cph_TopStr1_lbtnTopStr_Exit').click()
+        # Проверить, как изменился статус заявки Ч2
+        ti = driver.find_element_by_xpath("//table[@id='ctl00_cph_DGNeedsOnMain']/tbody/tr[2]/td[2]/img").get_attribute('title')
+        self.assertEqual('Истёк срок действия', ti, 'Статус заявки Ч2 установлен в %s, надо Истёк срок действия' % ti)
+
+
+    def test_a1(self):
+        """Заходит в заявление Ч2 и добавляет к нему новый документ вручную."""
+        fio = ('Фролова', 'Оксана', 'Вячеславовна')
+        driver = self.driver
+        driver.get(self.base_url + "Common/Main.aspx")
+        # Войти в поиск
+        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
+        # Заполнить ФИО
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
+        # Нажать поиск
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
+        # Перейти в ПКУ
+        driver.find_element_by_id("15479").click()
+        # Настроить фильтр, чтобы были видны все заявки
+        driver.find_element_by_id("ctl00_cph_rblNeedsOnMain_filter_2").click()
+        # Перейти в заявку Ч2
+        driver.find_element_by_xpath(
+            "//table[@id='ctl00_cph_DGNeedsOnMain']/tbody/tr/td/input[@id[contains(.,'EditZayv.aspx?k_gsp=15')]]").click()
+        # Войти в заявку
+        driver.find_element_by_css_selector("#ctl00_cph_lbtnDokum > img").click()
+        # Добавить новый документ
+        driver.find_element_by_id("ctl00_cph_lbtnAddData").click()
+        # Ввести дату нового документа
+        driver.find_element_by_id('x:1710152298.0:mkr:3').clear()
+        driver.find_element_by_id('x:1710152298.0:mkr:3').send_keys('10.01.2017')
+        # Подтвердить ввод
+        driver.find_element_by_id("ctl00_cph_lbtnOkData").click()
+        # Проверить право
+        driver.find_element_by_id("ctl00_cph_btnCalc").click()
+        # Установить сумму
+        driver.find_element_by_id('igtxtctl00_cph_uwtTabs__ctl5_wneRight2').clear()
+        driver.find_element_by_id('igtxtctl00_cph_uwtTabs__ctl5_wneRight2').send_keys('8000')
+        # Провести назначение
+        driver.find_element_by_id("ctl00_cph_uwtTabs__ctl5_btnRightToNazn").click()
+        # Установить дату с
+        driver.find_element_by_id('x:1836846734.0:mkr:3').clear()
+        driver.find_element_by_id('x:1836846734.0:mkr:3').send_keys('01.01.2017')
+        # Установить дату по
+        driver.find_element_by_id('x:643892887.0:mkr:3').clear()
+        driver.find_element_by_id('x:643892887.0:mkr:3').send_keys('31.12.2017')
+        # Подтвердить назначение (нажать зеленую галочку)
+        driver.find_element_by_id('ctl00_cph_uwtTabs__ctl6_lbnDoIt').click()
+        # Нажать перевести на выплату
+        driver.find_element_by_id('ctl00_cph_uwtTabs__ctl7_lbtnSetToPay').click()
+        # Будет предупреждение о прекращении выплат, ответить ОК
+        print(self.close_alert_and_get_its_text())
+        # Сохранить и выйти
+        driver.find_element_by_id('ctl00_cph_TopStr1_lbtnTopStr_SaveExit').click()
+
+
+
+    def test_a2(self):
+        """Не работает, задания 51597, 51599, 51600, 51603. Проверяет заявление Ч2. Для даты 10.01.2017 нет госуслуг, на дату 18.03.2016 есть."""
+        fio = ('Фролова', 'Оксана', 'Вячеславовна')
+        driver = self.driver
+        driver.get(self.base_url + "Common/Main.aspx")
+        # Войти в поиск
+        driver.find_element_by_xpath("//form[@id='aspnetForm']/table/tbody/tr/td[3]/a[3]/img").click()
+        # Заполнить ФИО
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbLastName").send_keys(fio[0])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbName").send_keys(fio[1])
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").clear()
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_tbPatronymic").send_keys(fio[2])
+        # Нажать поиск
+        driver.find_element_by_id("ctl00_cph_WebPanel1_UltraWebTab1_ctl00_button1").click()
+        # Перейти в ПКУ
+        driver.find_element_by_id("15479").click()
+        # Настроить фильтр, чтобы были видны все заявки
+        driver.find_element_by_id("ctl00_cph_rblNeedsOnMain_filter_2").click()
+        # Перейти в заявку Ч2
+        driver.find_element_by_xpath(
+            "//table[@id='ctl00_cph_DGNeedsOnMain']/tbody/tr/td/input[@id[contains(.,'EditZayv.aspx?k_gsp=15')]]").click()
+
+        # Проверяет на обложке
+        # Выбирает документ с датой 10.01.2017 (он введен вручную)
+        Select(driver.find_element_by_id("ctl00_cph_ddlIZM")).select_by_visible_text("10.01.2017")
+        driver.find_element_by_css_selector("option[value=\"10.01.2017 0:00:00\"]").click()
+        # Проверить статус, должен быть Назначено
+        t = driver.find_element_by_id('ctl00_cph_lbStateNazn').text
+        self.assertEqual('Назначено', t, 'Для даты 10.01.2017 должен быть назначено. Получился - %s' % t)
+        # Проверить что нет информера
+        id = "#ctl00_cph_TopStr_GosUslTop"
+        self.assertFalse(self.is_element_present(By.CSS_SELECTOR, id),
+                        'Для документов %s есть информер Госуслуги' % '10.01.2017')
+        # Вкладка госуслуги есть, пробую ее развернуть
+        driver.find_element_by_id('ctl00cphpnlGosUsl_header_img').click()
+        # Проверяю, что внутри нее нет кнопки добавить новый ответ
+        self.assertFalse(self.is_element_present(By.ID, 'ctl00_cph_pnlGosUsl_guResp1_lbtnNewResponse'),
+                         'Для документов %s есть возможность добавить ответ Госуслуги' % '10.01.2017')
+        # Переключаюсь на дату 18.03.2016, это документ введенный через госуслуги
+        Select(driver.find_element_by_id("ctl00_cph_ddlIZM")).select_by_visible_text("18.03.2016")
+        driver.find_element_by_css_selector("option[value=\"18.03.2016 12:02:58\"]").click()
+        # Проверить статус, должен быть Назначено
+        t = driver.find_element_by_id('ctl00_cph_lbStateNazn').text
+        self.assertEqual('Назначено', t, 'Для даты 18.03.2016 должен быть назначено. Получился - %s' % t)
+        # Проверить, что есть информер госуслуги
+        id = "//div[3]/table[2]/tbody/tr/td/span"
+        self.assertTrue(self.is_element_present(By.XPATH, id),
+                        'Для документов от %s нет информера Госуслуги' % '18.03.2016')
+        # Проверить, что информер не пустой
+        s = driver.find_element_by_xpath(id).text
+        if (s.find('Подано через портал ГосУслуг') == -1):
+            self.fail('Для документов от %s в информере должно быть написано Подано через портал ГосУслуг' % '18.03.2016')
+        # Вкладка госуслуги есть, пробую ее развернуть
+        driver.find_element_by_id('ctl00cphpnlGosUsl_header_img').click()
+        # Проверить все необходимые поля в контроле
+        err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_pnlGosUsl_guResp1')
+        if err:
+            self.fail('При проверке контрола госуслуги для документов от %s найдены ошибки:\n%s' % ('18.03.2016', err))
+
+        # Зайти во внутрь заявления
+        driver.find_element_by_css_selector("#ctl00_cph_lbtnDokum > img").click()
+        # Выбрать документы от 18.03.2016 (госуслуги)
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("18.03.2016")
+        # Проверить, что есть информер госуслуги
+        id = "//td[@id='ctl00_cph_TopStr1_GosUslTop']/span"
+        self.assertTrue(self.is_element_present(By.XPATH, id),
+                        'Для документов от %s нет информера Госуслуги' % '18.03.2016')
+        # Проверить, что информер не пустой
+        s = driver.find_element_by_xpath(id).text
+        if (s.find('Подано через портал ГосУслуг') == -1):
+            self.fail(
+                'Для документов от %s в информере должно быть написано Подано через портал ГосУслуг' % '18.03.2016')
+        # Проверить, что есть вкладка госуслуги
+        self.assertTrue(self.is_element_present(By.ID, 'ctl00_cph_uwtTabstd12'),
+                        'Для документов от %s нет вкладки Госуслуги' % '18.03.2016')
+        # Переключится на нее
+        driver.find_element_by_id('ctl00_cph_uwtTabstd12').click()
+        # Проверить все необходимые поля в контроле
+        err = forSeleniumTests.checkControl(driver, pre='ctl00_cph_uwtTabs__ctl12_guResp1')
+        if err:
+            self.fail('При проверке контрола госуслуги для документов от %s найдены ошибки:\n%s' % ('18.03.2016', err))
+        # Проверить, что тип документа - получено в электронном виде (Т)
+        t = driver.find_element_by_id('ctl00_cph_lbSource1').text
+        self.assertEqual('T', t, 'Для документов от %s указан тип %s, должен быть Т' % ('18.03.2016', t))
+
+        # Переключится на документ от 10.01.2017 (ручной)
+        Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("10.01.2017")
+        # Проверить что нет информера
+        id = "//td[@id='ctl00_cph_TopStr1_GosUslTop']/span"
+        self.assertFalse(self.is_element_present(By.XPATH, id),
+                         'Для документов %s есть информер Госуслуги' % '10.01.2017')
+        # Проверяю, что внутри нее нет вкладки госуслуги
+        self.assertFalse(self.is_element_present(By.ID, 'ctl00_cph_uwtTabstd12'),
+                         'Для документов %s есть вкладка Госуслуги' % '10.01.2017')
+        # Проверить, что тип документа - ручной (Р)
+        t = driver.find_element_by_id('ctl00_cph_lbSource1').text
+        self.assertEqual('Р', t, 'Для документов от %s указан тип %s, должен быть P' % ('10.01.2017', t))
+        # Нажимаю сохранить
+        driver.find_element_by_id('ctl00_cph_TopStr1_lbtnTopStr_Save').click()
+        # Проверить, что сработало нормально, не упало в ошибку. Например проверю, что на экране есть поле для ФИО
+        self.assertTrue(self.is_element_present(By.ID, 'ctl00_cph_lbZayvit'),
+                        'При сохранении документов от %s случилось что-то странное' % '10.01.2017')
 
 
     def is_element_present(self, how, what):
