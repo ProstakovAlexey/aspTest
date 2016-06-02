@@ -468,6 +468,9 @@ class case1(unittest.TestCase):
         curASP.execute("""delete F6 where F2_ID in (?)""", (f2_id,))
         curASP.execute("delete F_SCANDOC where F2_ID in (?)", (f2_id,))
         conASP.commit()
+        # все не выгруженные статусы отмечаю как выгруженные
+        curASP.execute('update EService_Response set date_Response = GETDATE() where date_Response is NULL')
+        conASP.commit()
         # заходит в просмотр ПГУ/МФЦ
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
@@ -1109,7 +1112,7 @@ and date_Response is not NULL""", ("Данилов", "Борис", "Петров
 
 
     #@unittest.skip('Временно пропущен')
-    def test_10(self):
+    def test_a10(self):
         """Зайти в ПКУ человека и проверить, что заявка одна отображена. Была ошибка, когда она показывалась дважды"""
         fio = ('Данилов', 'Борис', 'Петрович')
         driver = self.driver

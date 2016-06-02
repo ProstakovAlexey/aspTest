@@ -699,7 +699,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
 
 
     def test_a2(self):
-        """Не работает, задания 51597, 51599, 51600, 51603. Проверяет заявление Ч2. Для даты 10.01.2017 нет госуслуг, на дату 18.03.2016 есть."""
+        """Не работает, задания 51681. Проверяет заявление Ч2. Для даты 10.01.2017 нет госуслуг, на дату 18.03.2016 есть."""
         fio = ('Фролова', 'Оксана', 'Вячеславовна')
         driver = self.driver
         driver.get(self.base_url + "Common/Main.aspx")
@@ -734,10 +734,13 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
         self.assertFalse(self.is_element_present(By.CSS_SELECTOR, id),
                         'Для документов %s есть информер Госуслуги' % '10.01.2017')
         # Вкладка госуслуги есть, пробую ее развернуть
-        driver.find_element_by_id('ctl00cphpnlGosUsl_header_img').click()
+        #driver.find_element_by_id('ctl00cphpnlGosUsl_header_img').click()
         # Проверяю, что внутри нее нет кнопки добавить новый ответ
-        self.assertFalse(self.is_element_present(By.ID, 'ctl00_cph_pnlGosUsl_guResp1_lbtnNewResponse'),
-                         'Для документов %s есть возможность добавить ответ Госуслуги' % '10.01.2017')
+        #self.assertFalse(self.is_element_present(By.ID, 'ctl00_cph_pnlGosUsl_guResp1_lbtnNewResponse'),
+        #                 'Для документов %s есть возможность добавить ответ Госуслуги' % '10.01.2017')
+        self.assertFalse(self.is_element_present(By.ID, 'ctl00cphpnlGosUsl_header_img'),
+                         'Для документов %s есть вкладка Госуслуги' % '10.01.2017')
+
         # Переключаюсь на дату 18.03.2016, это документ введенный через госуслуги
         Select(driver.find_element_by_id("ctl00_cph_ddlIZM")).select_by_visible_text("18.03.2016")
         driver.find_element_by_css_selector("option[value=\"18.03.2016 12:02:58\"]").click()
@@ -783,7 +786,7 @@ delete EService_Request where f6_id is NULL and f6izm_id is NULL""")
             self.fail('При проверке контрола госуслуги для документов от %s найдены ошибки:\n%s' % ('18.03.2016', err))
         # Проверить, что тип документа - получено в электронном виде (Т)
         t = driver.find_element_by_id('ctl00_cph_lbSource1').text
-        self.assertEqual('T', t, 'Для документов от %s указан тип %s, должен быть Т' % ('18.03.2016', t))
+        self.assertEqual('Т', t, 'Для документов от %s указан тип %s, должен быть Т' % ('18.03.2016', t))
 
         # Переключится на документ от 10.01.2017 (ручной)
         Select(driver.find_element_by_id("ctl00_cph_ListData")).select_by_visible_text("10.01.2017")

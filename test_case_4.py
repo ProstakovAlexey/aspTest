@@ -22,7 +22,7 @@ if err > 0:
 addr = 'http://%s:%s/%s/' % (ASP['adr'], ASP['port'], ASP['url'])
 
 
-def delTI():
+def delTI(people):
         """Удаляет загруженные ранее записи для 1009 сервиса по списку людей"""
         DB = TI
         conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8" \
@@ -33,7 +33,8 @@ def delTI():
             print("Возникла ошибка при соединении с БД АСП")
             exit(1)
         cur = conTI.cursor()
-        cur.execute("delete SMEV_SERVICE_PERMIT where F2_id in (1432605, 1462895)")
+        cur.execute("delete SMEV_SERVICE_PERMIT where F2_id in (select id from F2 where famil=? and imja=? and OTCH=?)",
+                    (people['famil'], people['name'], people['otch']))
         conTI.commit()
         conTI.close()
 
@@ -132,7 +133,8 @@ class case4(unittest.TestCase):
         # очищаю имеющееся по ФИО
         fioList = (dict(famil='Тестовая', name='Путевка', otch='Лагерь'),
                    dict(famil='Тестов', name='Путевка', otch='Лагерь'))
-        delTI()
+        for people in fioList:
+            delTI(people)
         # проверим, что очистилось нормально
         for i in (0,1):
             people = fioList[i]
@@ -230,7 +232,8 @@ class case4(unittest.TestCase):
         Выделение путевки в санаторный оздоровительный лагерь, СНИЛС 222-222-222-31 - 2 путевки
         1. выделана с 10.06.2014
         2. выделена с 10.08.2015
-        Т.к. выгрузку за 2015г не делали, должна быть только одна путевка."""
+        Т.к. выгрузку за 2015г не делали, должна быть только одна путевка. Для проверки используется образец
+        222-222-222-31(2)"""
 
         with open('Шаблоны/Request_1009.xml', mode='r', encoding='utf-8') as f:
             shablon = f.read()
@@ -438,7 +441,7 @@ class case4(unittest.TestCase):
 
 
     def test_9_ask1009(self):
-        """Направляет запрос на тестового человека по путевкам в лагеря. Ожидаю данные за 2014г.
+        """Не работает, задание №51664. Направляет запрос на тестового человека по путевкам в лагеря. Ожидаю данные за 2014г.
         Выделение путевки в санаторный оздоровительный лагерь"""
 
         with open('Шаблоны/Request_1009.xml', mode='r', encoding='utf-8') as f:

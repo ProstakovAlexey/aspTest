@@ -11,6 +11,7 @@ import os, sys
 import config
 import forSeleniumTests
 from pymongo import MongoClient
+import platform
 
 
 TI, ASP, LK, err = config.readConfig()
@@ -54,27 +55,12 @@ class case13(unittest.TestCase):
         self.timeBegin = time.time()
         self.testDict = {'name': self.id().split('.')[-2:], 'start': datetime.datetime.now()}
         print('%s Выполняю тест: %s' % (self.testDict['start'], self.testDict['name']))
-
-        # соединиться с БД ТИ и АСП
-        DB = TI
-        conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8; autocommit=True" \
-               % (DB['DB_address'], DB['DB_port'], DB['DB_name'], DB['DB_password'])
-        try:
-            self.conTI = pypyodbc.connect(conS)
-            self.curTI = self.conTI.cursor()
-        except:
-            print("Возникла ошибка при соединении с БД ТИ, строка соединения %s" % conS)
-            exit(1)
-        # соединиться с АСП
-        DB = ASP
-        conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8; autocommit=True" % (
-            DB['DB_address'], DB['DB_port'], DB['DB_name'], DB['DB_password'])
-        try:
-            self.conASP = pypyodbc.connect(conS)
-            self.curASP = self.conASP.cursor()
-        except:
-            print("Возникла ошибка при соединении с БД АСП строка соединения %s" % conS)
-            exit(1)
+        # соединяюсь с ТИ
+        self.conTI = forSeleniumTests.getConnection(TI)
+        self.curTI = self.conTI.cursor()
+        # соединяюсь с АСП
+        self.conASP = forSeleniumTests.getConnection(ASP)
+        self.curASP = self.conASP.cursor()
         self.goMainASP()
 
 
@@ -461,7 +447,7 @@ class case13(unittest.TestCase):
             # выйти в список заявлений
             driver.find_element_by_xpath("//a[@title='Возврат на предыдущую форму']/img").click()
 
-
+    #@unittest.skip('Временно не запускать')
     def test_4(self):
         """Пробует сделать решение по заявления и проверяет, сохранились они в БД или нет.
         Для test_case_12_1 - решение через обложку, для test_case_12_2 - из заявления."""
@@ -602,10 +588,6 @@ class case13(unittest.TestCase):
                 self.fail('Пытается вернуть статус по не существующему заявлению.')
             # выйти в список заявлений
             driver.find_element_by_xpath("//a[@title='Возврат на предыдущую форму']/img").click()
-
-
-
-
 
 
     def is_element_present(self, how, what):

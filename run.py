@@ -11,6 +11,9 @@ import test_case_8
 import test_case_9
 import test_case_10
 import test_case_11
+import test_case_12
+import test_case_13
+import test_case_15
 
 import HTMLTestRunner
 
@@ -26,6 +29,9 @@ suite1.addTests(loader.loadTestsFromModule(test_case_8))
 suite1.addTests(loader.loadTestsFromModule(test_case_9))
 suite1.addTests(loader.loadTestsFromModule(test_case_10))
 suite1.addTests(loader.loadTestsFromModule(test_case_11))
+suite1.addTests(loader.loadTestsFromModule(test_case_12))
+suite1.addTests(loader.loadTestsFromModule(test_case_13))
+suite1.addTests(loader.loadTestsFromModule(test_case_15))
 runner = unittest.TextTestRunner(verbosity=2)
 outfile = open('/home/alexey/Программы/Тестирование/Анализ результатов/html/report.html', 'w')
 runner = HTMLTestRunner.HTMLTestRunner(

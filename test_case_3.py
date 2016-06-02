@@ -45,11 +45,11 @@ def sendJam(IS, snils, year=''):
     # вставляю СНИЛС
     req = req.replace("#SNILS#", snils)
     req = req.replace("#YEAR#", year)
+
     con = http.client.HTTPConnection(IS['adr'], IS['port'])
+
     try:
         con.request("POST", "/socportal/SMEV/InfoService.asmx", req.encode('utf-8'), headers=headers)
-        #con.request("POST", "/ATN2/WebExt/SMEV/InfoService.asmx", req.encode('utf-8'), headers=headers)
-        #http://andreyan/ATN2/WebExt/SMEV/InfoService.asmx/GetInfo
         result = con.getresponse().read()
         result = result.decode('utf-8')
         con.close()
@@ -171,7 +171,7 @@ class case3(unittest.TestCase):
 
     #@unittest.skip('временно отключен')
     def test_1_load_2013(self):
-        """ Выгружает ПКУ для ЛК за 2013г.
+        """Выгружает ПКУ для ЛК за 2013г.
         :return:
         """
         delLK(LK)
@@ -216,10 +216,10 @@ class case3(unittest.TestCase):
         p.click()
         p.send_keys('31122013')
         # убираю все галочки с выплат
-        checkIdList = ('ctl00_cph_CB_unpaid', 'ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf', 'ctl00_cph_CB_nopay')
+        checkIdList = ('ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf', 'ctl00_cph_CB_nopay')
         self.clearCheck(driver, checkIdList)
         # ставлю галочки
-        checkIdList = ('ctl00_cph_CB_unpaid', 'ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf')
+        checkIdList = ('ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf')
         for id in checkIdList:
             driver.find_element_by_id(id).click()
         # проверяю работу галочки не выгружать закрытые признаки учета
@@ -283,7 +283,7 @@ class case3(unittest.TestCase):
 
     #@unittest.skip('временно отключен')
     def test_3_load(self):
-        """ Выгружает ПКУ для ЛК за 2014г."""
+        """Выгружает ПКУ для ЛК за 2014г."""
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")
         # захожу в выгрузку на ТИ
@@ -313,10 +313,10 @@ class case3(unittest.TestCase):
         p.click()
         p.send_keys('31122014')
         # убираю все галочки с выплат
-        checkIdList = ('ctl00_cph_CB_unpaid', 'ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf', 'ctl00_cph_CB_nopay')
+        checkIdList = ('ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf', 'ctl00_cph_CB_nopay')
         self.clearCheck(driver, checkIdList)
         # ставлю галочки
-        checkIdList = ('ctl00_cph_CB_unpaid', 'ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf')
+        checkIdList = ('ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf')
         for id in checkIdList:
             driver.find_element_by_id(id).click()
         # проверяю работу галочки не выгружать закрытые признаки учета
@@ -457,7 +457,7 @@ class case3(unittest.TestCase):
         p.click()
         p.send_keys('31122015')
         # убираю все галочки с выплат
-        checkIdList = ('ctl00_cph_CB_unpaid', 'ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf', 'ctl00_cph_CB_nopay')
+        checkIdList = ('ctl00_cph_CB_negative', 'ctl00_cph_CB_Inf', 'ctl00_cph_CB_nopay')
         self.clearCheck(driver, checkIdList)
         # ставлю галочки, в т.ч. на Не выгружать информацию по мерам соцподдержки
         for id in checkIdList:

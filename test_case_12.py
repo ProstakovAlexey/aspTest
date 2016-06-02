@@ -383,7 +383,7 @@ class case12(unittest.TestCase):
         driver.find_element_by_id("ctl00_cph_lbtnGoBack__4").click()
 
 
-    #@unittest.skip('Не работает, задание 51186')
+    #@unittest.skip('')
     def test_3(self):
         """В двух принятых заявлениях визуально проверяет обязательные поля: вкладка госуслуги, контроль госуслуги, номера заявлений"""
         # захожу в госуслуги
@@ -436,7 +436,7 @@ class case12(unittest.TestCase):
 
 
     def test_4(self):
-        """Не работает, задание 51328. По ранее принятым заявлениям пытаюсь установить статус"""
+        """По ранее принятым заявлениям пытаюсь установить статус"""
         # захожу в госуслуги
         driver = self.driver
         driver.get(self.base_url + "VisitingService/ViewGosUsl.aspx")

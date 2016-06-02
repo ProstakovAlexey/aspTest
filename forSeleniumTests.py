@@ -2,6 +2,8 @@
 __author__ = 'alexey'
 import time
 from selenium.webdriver.support.ui import Select
+import platform
+import pypyodbc
 
 
 def checkControl(driver, pre):
@@ -274,6 +276,31 @@ def getResponseGUI(driver, status, comment, file):
     resList.append(res)
     return resList
 
+
+def getConnection (DB):
+    """ Соединяется с БД, возвращает коннектион. Если не получается, то завершает работу.
+    :param DB: словарь с параметрами для соединения
+    :return: коннект
+    """
+    # определяет, на какой ОС запущен
+    os = platform.system()
+    if os == 'Linux':
+        conS = "DRIVER=FreeTDS; SERVER=%s; PORT=%s; DATABASE=%s; UID=sa; PWD=%s; TDS_Version=8.0; ClientCharset=UTF8; autocommit=True" \
+               % (DB['DB_address'], DB['DB_port'], DB['DB_name'], DB['DB_password'])
+    elif os == 'Windows':
+        # на windows 2003 тут нужно указать другую версию клиента
+        conS = 'DRIVER={SQL Server Native Client 11.0}; SERVER=%s; DATABASE=%s; UID=sa; PWD=%s' \
+               % (DB['DB_address'], DB['DB_name'], DB['DB_password'])
+    else:
+        print('Запущен на не известной ОС. Работает только с Linux и Windows.')
+        exit(1)
+    try:
+        # пробую соединится
+        con = pypyodbc.connect(conS)
+    except:
+        print("Возникла ошибка при соединении с БД ТИ, строка соединения %s" % conS)
+        exit(1)
+    return con
 
 
 
